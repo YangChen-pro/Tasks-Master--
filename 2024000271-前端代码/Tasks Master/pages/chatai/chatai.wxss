@@ -1,0 +1,173 @@
+/* pages/chatai/chatai.wxss */
+/* pages/activity/activity.wxss */
+.container{
+  border-top: 1rpx solid #f5f5f5;
+}
+.item{
+  padding: 20rpx 40rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item .left{
+  width: 530rpx;
+}
+
+.item .right{
+  width: 140rpx;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.item .right button{
+  width: 100rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+  padding: 8rpx 10rpx;
+}
+
+.item .title{
+  padding-bottom: 10rpx;
+  font-size: 30rpx;
+}
+.item .text{
+  font-size: 28rpx;
+  color: rgb(78, 218, 51);
+  padding-bottom: 10rpx;
+}
+
+.item .date{
+  font-size: 28rpx;
+  color: rgb(218, 28, 28);
+  padding-bottom: 10rpx;
+}
+.top {
+  background-color: #fdfdfd;
+  height: 270rpx;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(19, 18, 18);
+}
+
+.top .tip {
+  font-size: 22rpx;
+  font-weight: 200;
+}
+
+.top .count {
+  padding: 10rpx;
+  font-size: 58rpx;
+}
+
+.function {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #fafafa;
+}
+
+.function .menu {
+  font-size: 28rpx;
+  margin: 25rpx 0;
+  color: rgb(233, 18, 108);
+  width: 70%;
+  text-align: center;
+  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table .item {
+  border-bottom: 1rpx solid #efeff0;
+
+}
+
+.table .item .title{
+  margin: 20rpx 30rpx;
+  padding-left: 10rpx;
+  border-left: 5rpx solid #ecf3f2;
+  font-size: 26rpx;
+}
+
+.view-contain-ti {
+  position: relative;
+  background-color: #f1f1f1; /* 设置背景色 */
+  border: 1px solid #ddd; /* 设置边框 */
+  border-radius: 10px; /* 设置边框圆角 */
+  padding: 17px; /* 设置内边距 */
+  text-align: left; /* 设置文本左对齐 */
+  width: 100%;
+  height:250px;
+  
+  
+
+  
+
+}
+.bubble::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: solid transparent;
+  border-width: 5px;
+  border-top-color: #f5f4fa;
+}
+
+
+
+
+.input1 {
+  margin:  auto 10px;
+  word-wrap: break-word; /* 自动换行 */
+}
+
+
+
+/*选择日期的样式*/
+.container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 居左对齐 */
+  padding: 10px;
+}
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px; /* 下边距，控制上下间距 */
+  padding: 10px;
+  background-color:#f8faf8;
+  border-radius: 5px;
+  width: 100%; /* 可以根据需要设置宽度 */
+}
+
+.date-picker text {
+  margin-right: 1px; /* 文本和选择器之间的间距 */
+  font-size: 16px;
+  color: #333;
+}
+
+ .picker {
+  font-size: 16px;
+  flex-grow: 1; /* 让选择器占据剩余空间 */
+}
+
+
+/*内容描述的样式*/
+.content-description {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 200px; 
+  line-height: 30px; /* 设置行高 */}
+
+  
+

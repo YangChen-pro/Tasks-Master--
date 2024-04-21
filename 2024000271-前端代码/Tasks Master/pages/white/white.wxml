@@ -1,0 +1,8 @@
+<!--pages/exchangeRecord/exchangeRecord.wxml-->
+<view > <!-- 增加margin-bottom为加载更多按钮提供间隔 -->  
+    <text style="font-size: 20px;">暂无</text> <!-- 修改font-size增大字体 -->  
+</view>  
+<view style="text-align: center; margin-bottom: 20px;">  
+    <text wx:if="{{loadingMore}}" style="font-size: 20px;">正在加载...</text>  
+    <text wx:else bindtap="doLoadMore" style="font-size: 20px;">加载更多</text>  
+</view>  

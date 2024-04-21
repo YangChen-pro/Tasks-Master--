@@ -1,0 +1,24 @@
+<!--pages/activity/activity.wxml-->
+  <!-- 添加的顶部图片 -->  
+  <image src="/images/k2.jpg" class="background-image" mode="aspectFill"></image>  
+<view class="content">  
+</view>
+
+<view class="container">
+  
+  <view class="item"  wx:for="{{activityList}}" wx:key="index">
+    <view class="left">
+      <view class="title" style="color:#337ab7;"><label class="fa fa-flag-o" ></label> {{item.title}}</view>
+      <view class="text">{{item.text}}</view>
+      <view class="date"><label class="fa fa-user-plus"></label> 报名: {{item.count}}人</view>
+      <view class="date"><label class="fa fa-calendar"></label>  活动日期: {{item.date}}</view>
+    </view>
+    <view class="right">
+      <button type="primary" disabled="{{item.disabled}}" bindtap="doApply" data-aid="{{item.id}}">报名</button>
+    </view>
+  </view>
+  <view style="text-align: center;">
+    <text bindtap="doLoadMore">加载更多</text>
+  </view>
+
+</view>

@@ -1,0 +1,66 @@
+<!--pages/activity/activity.wxml-->
+
+<view class="container">
+  <view class="top">
+  <view class="tip"></view>
+  <view class="view-contain-ti" style="width: 100%; height: 100px;">
+    <textarea class="input1" placeholder="请输入对问题的描述 比如：学习编程" bindinput="onput"></textarea>
+  </view>
+</view>
+
+ <!-- pages/date-picker/date-picker.wxml -->
+<view class="containe1r">
+  <view class="date-picker">
+    <text>起始日期：</text>
+    <picker mode="date" value="{{startDate}}" bindchange="bindStartDateChange" class="picker">
+      <text>{{startDate}}</text>
+    </picker>
+  </view>
+  
+  <view class="date-picker">
+    <text>结束日期：</text>
+    <picker mode="date" value="{{endDate}}" bindchange="bindEndDateChange" class="picker">
+      <text>{{endDate}}</text>
+    </picker>
+  </view>
+</view>
+
+
+
+
+
+
+  <view class="function">
+
+     
+      <button bindtap="sendRequestToDjango">点击任务拆解</button> 
+    
+
+    
+
+  </view>
+  <view class="item" wx:for="{{steps}}" wx:key="index">
+    <view class="left">
+      <view class="title" style="color:#090a0a;"><label class="fa fa-pencil-square"></label> 第{{item.step}}步</view>
+      <rich-text class="content-description" style="width:280px ">
+        内容描述：{{item.task_content}}
+      </rich-text>
+      
+      <view class="expected-date">
+        <label class="fa fa-calendar"></label> 预期完成时间: {{item.endtime}}
+      </view>
+    </view>
+
+
+    <view class="right">
+      <button type="primary" disabled="{{item.disabled}}" bindtap="doApply" data-aid="{{item.id}}">点击创建</button>
+    </view>
+  </view>
+  <view style="text-align: center;">
+    <text bindtap="doLoadMore">加载更多</text>
+  </view>
+   
+
+
+  
+</view>

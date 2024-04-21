@@ -1,0 +1,109 @@
+/* pages/goods/goods.wxss */
+/* pages/exchange/exchange.wxss */
+.container{
+  padding:20rpx;
+}
+.category{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 20rpx 0;
+  font-size: 28rpx;
+}
+.category .item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.category .item image{
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 10rpx;
+}
+
+.falls{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.falls .item{
+  width: 368rpx;
+  margin-top: 20rpx;
+}
+
+.falls .item:last-child:nth-child(odd) {
+  margin-right: 380rpx;
+}
+
+.falls .item .pic{
+  position: relative;
+}
+
+.falls .item .pic .img{
+  width: 100%;
+  display: block;
+}
+
+.falls .item .pic .user{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #333;
+  opacity: 0.6;
+  height: 60rpx;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: #fff;
+  font-size: 28rpx;
+}
+.falls .item .pic .user .author,.falls .item .pic .user .favor{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding: 0 10rpx;
+}
+
+.falls .item .pic .user .author .avatar{
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 14rpx;
+  margin-right:10rpx;
+}
+
+.falls .item .pic .user .favor .icon{
+  width: 28rpx;
+  height: 28rpx;
+  margin-right:10rpx;
+}
+
+.falls .item .desc{
+  border: 1rpx solid #ddd;
+  border-top: 0;
+  padding: 15rpx;
+  font-size: 28rpx;
+}
+
+.falls .item .desc .title{
+  font-size: 32rpx;
+  text-align: center;
+}
+
+.falls .item .desc .exchange{
+  padding-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.falls .item .desc .btn{
+  padding: 5px 10rpx;
+  background-color: #02bfae;
+  color: white;
+  border-radius: 5rpx;
+}

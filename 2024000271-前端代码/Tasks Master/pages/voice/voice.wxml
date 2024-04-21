@@ -1,0 +1,7 @@
+<!--pages/voice/voice.wxml-->
+<textarea class="text" placeholder="请说出你的需求" placeholder-class="hoder" model:value="{{content}}" maxlength="{{-1}}"></textarea>
+
+
+
+<button class="btn" hover-class="press" bind:longpress="recordStart" bind:touchcancel="recordCancel" bind:touchend="recordStop"> <label class="fa fa-microphone"></label> 按住说话</button>
+

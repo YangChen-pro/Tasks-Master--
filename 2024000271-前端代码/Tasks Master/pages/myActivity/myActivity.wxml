@@ -1,0 +1,30 @@
+<!--pages/myActivity/myActivity.wxml-->
+  <!-- 添加的顶部图片 -->  
+  <image src="/images/k4.jpg" class="background-image" mode="aspectFill"></image>  
+<view class="content">  
+</view>
+
+<view > <!-- 增加margin-bottom为加载更多按钮提供间隔 -->  
+    <text style="font-size: 20px;">暂无</text> <!-- 修改font-size增大字体 -->  
+</view>  
+<view style="text-align: center; margin-bottom: 20px;">  
+    <text wx:if="{{loadingMore}}" style="font-size: 20px;">正在加载...</text>  
+    <text wx:else bindtap="doLoadMore" style="font-size: 20px;">加载更多</text>  
+</view>  
+<!--暂时不用------>
+<!-- <view class="container">
+  <view class="item" wx:for="{{activityList}}" wx:key="index">
+    <view class="left">
+      <view class="title" style="color:#337ab7;"><label class="fa fa-flag-o" ></label> {{item.title}}</view>
+      <view class="text">{{item.text}}</view>
+      <view class="date"><label class="fa fa-user-plus"></label> 可兑换积分: {{item.score}}</view>
+      <view class="date"><label class="fa fa-calendar"></label>  活动日期: {{item.date}}</view>
+    </view>
+    <view class="right">
+      <button type="primary" disabled="{{item.exchange}}" bindtap="bindExchange" data-aid="{{item.id}}" data-index="{{index}}">申请</button>
+    </view>
+  </view>
+  <view style="text-align: center;">
+    <text bindtap="doLoadMore">加载更多</text>
+  </view>
+</view> -->

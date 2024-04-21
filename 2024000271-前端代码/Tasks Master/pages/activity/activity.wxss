@@ -1,0 +1,60 @@
+/* pages/activity/activity.wxss */
+/* 顶部图片控制 */  
+.background-image {  
+  width: 100%; /* 宽度100% */  
+  height: 100vh; /* 高度视口高度 */  
+  position: fixed; /* 固定定位 */  
+  z-index: -1; /* 确保在内容之下 */  
+}  
+
+.content {  
+  position: relative; /* 相对于背景图片定位内容 */  
+  z-index: 1; /* 确保在背景图片之上 */  
+}
+
+
+.container{
+  border-top: 1rpx solid #f5f5f5;
+}
+.item{
+  padding: 20rpx 40rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item .left{
+  width: 530rpx;
+}
+
+.item .right{
+  width: 140rpx;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.item .right button{
+  width: 100rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+  padding: 8rpx 10rpx;
+}
+
+.item .title{
+  padding-bottom: 10rpx;
+  font-size: 30rpx;
+}
+.item .text{
+  font-size: 28rpx;
+  color: grey;
+  padding-bottom: 10rpx;
+}
+
+.item .date{
+  font-size: 28rpx;
+  color: grey;
+  padding-bottom: 10rpx;
+}

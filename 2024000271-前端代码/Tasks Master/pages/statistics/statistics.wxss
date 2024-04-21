@@ -1,0 +1,17 @@
+/* pages/statistics/statistics.wxss */
+
+.container{
+  border-top: 1px solid #ddd;
+}
+
+.container .menu{
+  font-size: small;
+  padding: 10px 40rpx;
+  border-bottom: 1px dotted #ddd;
+  text-align: center;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+}

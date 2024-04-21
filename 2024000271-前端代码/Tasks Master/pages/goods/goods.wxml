@@ -1,0 +1,15 @@
+<!--pages/goods/goods.wxml-->
+<view class="falls">
+    <view class="item" wx:for="{{goodsList}}" wx:key="id">
+      <view class="pic">
+        <navigator><image class="img" src="{{item.img}}" mode="widthFix"></image></navigator>
+      </view>
+      <view class="desc">
+        <view class="title">{{item.title}}</view>
+        <view class="exchange">
+          <view>{{item.price}}积分</view>
+          <view class="btn" bindtap="doExchange" data-gid="{{item.id}}">兑换</view>
+        </view>
+      </view>
+    </view>
+  </view>

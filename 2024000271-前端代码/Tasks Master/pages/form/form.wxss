@@ -1,0 +1,95 @@
+/* pages/form/form.wxss */
+
+.avatar{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar image {
+  margin-top: 140rpx;
+  width: 700rpx;
+  height: 700rpx;
+  border-radius: 30rpx;
+  border: 1px solid #ddd;
+}
+
+.form{
+  padding: 40rpx;
+}
+
+.form .row-group{
+  padding: 10rpx 0;
+  border-bottom: 1rpx solid #ddd;
+  position: relative;
+  margin-top: 30rpx;
+}
+
+
+
+.form .row-group text{
+  font-size: 28rpx;
+  padding:20rpx 0;
+}
+
+.form .row-group input{
+  padding: 10rpx 0;
+}
+
+.form .row-group .txt{
+  color: #ccc;
+  font-size: 28rpx;
+}
+
+.form .picker-group{
+  border-bottom: 1rpx solid #ddd;
+}
+
+.form .picker-group .picker-txt{
+  color: #ccc;
+  font-size: 28rpx;
+  padding: 40rpx 0 20rpx 0;
+}
+
+.form .picker-group .picker{
+  color: black;
+}
+
+.form .submit{
+  margin-top: 80rpx;
+  color: #fff;
+  border: 2rpx solid #00c8b6;
+  background-color: #00c8b6;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 居左对齐 */
+  padding: 10px;
+}
+
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px; /* 下边距，控制上下间距 */
+  padding: 10px;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 5px;
+  width: 100%; /* 可以根据需要设置宽度 */
+}
+
+.date-picker text {
+  margin-right: 1px; /* 文本和选择器之间的间距 */
+  font-size: 16px;
+  color: #333;
+}
+
+ .picker {
+  font-size: 16px;
+  flex-grow: 1; /* 让选择器占据剩余空间 */
+}
+

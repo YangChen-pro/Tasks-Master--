@@ -1,0 +1,29 @@
+/* pages/voice/voice.wxss */
+page{
+  background-color: #f5f5f5;
+}
+.text{
+  height: 400rpx;
+  background-color: white;
+  width: 100%;
+  padding: 20rpx;
+}
+
+.btn{
+  margin-top: 30rpx;
+  /* color: #fff; */
+  border: 2rpx solid #ddd;
+  background-color: white; 
+  font-size: 32rpx;
+  font-weight: normal;
+}
+
+.press label{
+  color: #179B16;
+}
+.press{
+  background-color: #ddd;
+}
+.hoder{
+  font-size: 28rpx;
+}

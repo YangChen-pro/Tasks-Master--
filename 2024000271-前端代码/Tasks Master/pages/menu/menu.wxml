@@ -1,0 +1,50 @@
+
+
+<view class="container">
+<!--------------添加一个用户注册信息管理界面-----------
+<navigator class="menu" url="/pages/index_rig/index_rig" >
+    <label class="fa fa-superpowers" style="color:#32CD32"></label>
+    <view>用户登录信息查询</view>
+  </navigator>
+------用不着了--------------------->
+
+<!--------------添加一个番茄钟--------------------------->
+<navigator class="menu" url="/pages/tomato/tomato" >
+    <label class="fa  fa-superpowers" style="color:#32CD32"></label>
+    <view>专注模式</view>
+  </navigator>
+
+  <navigator class="menu" url="/pages/index/index" >
+    <label class="fa fa-superpowers" style="color:#32CD32"></label>
+    <view>拍照待办</view>
+  </navigator>
+
+  <navigator class="menu" url="/pages/indexc/indexc">
+    <label class="fa fa-calendar-o" style="color:#7D9EC0"></label>
+    <view>日历</view>
+  </navigator>
+
+<!-----------这个就完全放在登录上了
+  <navigator class="menu" url="/pages/face/face">
+    <label class="fa fa-meh-o" style="color:#FFA500"></label>
+    <view>人脸检测</view>
+  </navigator>
+------------------------------->
+  <navigator class="menu" url="/pages/activity/activity">
+    <label class="fa fa-bell-o" style="color:#87CEFA"></label>
+    <view>社区活动</view>
+  </navigator>
+
+
+
+  <navigator class="menu" url="/pages/chatai/chatai">
+    <label class=" 	fa fa-map-o" style="color:#EE0000"></label>
+    <view>ai任务分解助手</view>
+  </navigator>
+
+  <navigator class="menu" url="/pages/goods/goods">
+    <label class="fa fa-credit-card" style="color:#778899"></label>
+    <view>积分兑换商城</view>
+  </navigator>
+
+</view>

@@ -1,0 +1,32 @@
+/* pages/login/login.wxss */
+page{
+	height: 100%;
+}
+.camera{
+  height: 80%;
+  width: 100%;
+}
+
+.function{
+  height: 20%;
+  background-color: black;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.record image{
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.switch{
+  color: white;
+  width: 80rpx;
+  height: 80rpx;
+}
+.switch image{
+  width: 80rpx;
+  height: 80rpx;
+}

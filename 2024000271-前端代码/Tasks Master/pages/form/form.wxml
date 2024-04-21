@@ -1,0 +1,29 @@
+<!--pages/form/form.wxml-->
+<view class="avatar">
+  <image src='{{avatar}}' bindtap="bindToCamera"></image>
+</view>
+
+<view class="form">
+  <view class="row-group">
+    <input placeholder="请输入对事情的描述" placeholder-class='txt' model:value="{{name}}" bindinput="bindNameChange" />
+  </view>
+
+<view/>
+
+<view class="containe1r">
+ <view class="date-picker">
+    <text>结束日期：</text>
+    <picker mode="date" value="{{endDate}}" bindchange="bindEndDateChange" class="picker">
+      <text>{{endDate}}</text>
+    </picker>
+  </view>
+ </view>
+
+  <view>
+    <button class="submit" bindtap="postUser" > 提 交 </button>
+  </view>
+ </view>
+
+<view/>
+
+

@@ -1,0 +1,17 @@
+  <!-- 添加的顶部图片 -->  
+<image src="/images/k3.jpg" class="background-image" mode="aspectFill"></image>  
+<view class="content">  
+</view>
+
+<view class="container">
+  <input class="input-time" type="number" placeholder="输入分钟数" value="{{inputMinutes}}" bindinput="inputChange"/>
+<!--------暂时封印
+  <text class="timer">{{minutes}}:{{seconds}}</text>
+-------->
+  <view class="timer-container">  
+  <text class="timer">{{minutes}}:{{seconds}}</text>  
+</view>
+  <button bindtap="startTimer">开始</button>
+  <button bindtap="stopTimer">暂停</button>
+  <button bindtap="resetTimer">重置</button>
+</view>

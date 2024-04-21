@@ -1,0 +1,34 @@
+/* pages/menu/menu.wxss */
+
+page{
+  height: 100%;
+  background-color: #F5F5F5;
+}
+
+.container{
+  border-top: 1px solid #ddd;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.container .menu{
+  width: 374rpx;
+  height: 430rpx;
+  border-bottom: 1px solid #ddd;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.container .menu label{
+  padding: 50rpx 0;
+}
+
+.container .menu:nth-child(odd){
+  border-right:  1px solid #ddd;
+}

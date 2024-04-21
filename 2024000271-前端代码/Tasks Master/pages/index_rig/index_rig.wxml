@@ -1,0 +1,52 @@
+<view class="container">
+  <view class="top">
+    <view class="tip"></view>
+    <view class="count">{{dataDict.today_count}}</view>
+  </view>
+
+  <view class="function">
+<!--------------------------就直接从登录进行注册，这里就不显示了
+    <view class="menu" style="border-right:1rpx solid #ddd;" bindtap="bindToForm"> 
+      <text class="fa fa-camera-retro"></text> 点击填写你的笔记
+    </view>
+
+    <view class="menu" bindtap="bindToStatistics">  
+      <text class="fa fa-pie-chart" ></text> 你的图文代办笔记数
+    </view>
+----------------->
+
+  </view>
+  <!--------------改一下标题------------------>
+  <view class="table">
+    <view class="item">
+      <view class="title">登录记录（{{dataDict.today_count}}次）</view>
+    </view>
+
+    <view class="item" wx:for="{{dataDict.data}}" wx:for-item="row" wx:key="index">
+      <view class="record">
+        <view class="avatar">
+          <image src="{{row.avatar}}"></image>
+        </view>
+
+        <view class="desc">
+          <view class="username">{{row.name}}</view>
+          <!-------------------把地区显示先关掉
+          <view>
+            <view class="txt-group">
+              <label class="zh">待办类型</label>
+              <label class="en"> | AREA</label>
+            </view>
+            <view class="area"> 
+              <label class="fa fa-map-marker"></label> {{row.area}} 
+            </view>
+          </view>
+                      ------------------->
+        </view>
+        <view class="delete" bindtap="doDeleteRow" data-nid="{{row.id}}" data-index="{{index}}" >
+          <label class="fa fa-trash"></label>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

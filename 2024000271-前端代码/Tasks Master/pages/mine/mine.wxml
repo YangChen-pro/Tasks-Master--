@@ -1,0 +1,78 @@
+<!--pages/mine/mine.wxml-->
+<block wx:if="{{userInfo==null}}">
+
+  <navigator class="login-area" url="/pages/login/login">
+    <view class="btn">一键登录</view>
+  </navigator>
+</block>
+<block wx:else>
+
+ <!--美化主界面 -->  
+  <!-- 添加的顶部图片 -->  
+  <image src="/images/k5.jpg" class="background-image" mode="aspectFill"></image>  
+<view class="content">  
+</view>
+
+
+
+
+
+
+
+
+
+
+  <view class="container">
+    <view class="top-view">
+      <view class="user">
+        <view class="row">
+          <image class="avatar" src="{{userInfo.avatar}}"></image>
+          <view class="name">
+            <view bindtap="logout">{{userInfo.name}}</view>
+          </view>
+        </view>
+  
+      </view>
+      <view class="numbers">
+        <view class="row">
+          <text>{{userInfo.score}}</text>
+          <text>积分</text>
+        </view>
+        <view class="row">
+          <text>0</text>
+          <text>打卡记录</text>
+        </view>
+        <view class="row">
+          <text>0</text>
+          <text>参与的活动</text>
+        </view>
+        <view class="row">
+          <text>0</text>
+          <text>其他</text>
+        </view>
+      </view>
+    </view>
+    <view class="function-view">
+      <navigator class="row" url="/pages/myActivity/myActivity">
+        <view class="left">我参加的活动</view>
+        <view class="right">
+           <label class="fa fa-angle-right"></label>
+        </view>
+      </navigator>
+      <navigator class="row" url="/pages/exchangeRecord/exchangeRecord">
+        <view class="left">我兑换的记录</view>
+        <view class="right">
+           <label class="fa fa-angle-right"></label>
+        </view>
+      </navigator>
+      <navigator class="row" url="/pages/white/white">
+        <view class="left">版本更新记录</view>
+        <view class="right">
+           <label class="fa fa-angle-right"></label>
+        </view>
+      </navigator>
+    </view>
+  </view>
+
+
+</block>

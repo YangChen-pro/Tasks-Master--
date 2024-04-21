@@ -1,0 +1,79 @@
+/* 页面背景和整体布局样式 */
+page {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+   /* 纯白背景 */
+ /*background-color: #FFFFFF;*/
+ /* 纯白背景 */
+}
+
+/* 顶部图片控制 */  
+.background-image {  
+  width: 100%; /* 宽度100% */  
+  height: 100vh; /* 高度视口高度 */  
+  position: fixed; /* 固定定位 */  
+  z-index: -1; /* 确保在内容之下 */  
+}  
+  
+.content {  
+  position: relative; /* 相对于背景图片定位内容 */  
+  z-index: 1; /* 确保在背景图片之上 */  
+}
+
+/* 输入框样式 */
+.input-time {
+  width: 280px;
+  height: 40px;
+  border: 2px solid #4CAF50; /* 绿色边框 */
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+  outline: none;
+}
+
+/* 计时器数字样式 暂时封印*/
+/*.timer {
+  font-size: 48px;
+  color: #333333;
+  margin-bottom: 30px;
+  font-weight: bold;
+  justify-content: center;   
+}*/
+.timer-container {  
+  display: flex;  
+  justify-content: center; /* 水平居中 */  
+  align-items: center; /* 垂直居中，如果需要的话 */  
+  height: 20%; /* 如果需要垂直居中，需要指定容器的高度 */  
+}  
+  
+.timer {  
+  font-size: 48px;  
+  color: #333333;  
+  margin-bottom: 30px;  
+  font-weight: bold;  
+}
+/* 按钮通用样式 */
+button {
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #4CAF50; /* 绿色背景 */
+  color: white;
+  font-size: 16px;
+  margin: 10px;
+  border: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* 按钮悬浮效果 */
+button:hover {
+  background-color: #45A049; /* 深绿色 */
+  transform: translateY(-2px);
+}
+

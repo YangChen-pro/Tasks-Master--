@@ -1,0 +1,25 @@
+<!--pages/form/form.wxml-->
+<!-----------显示标题------------------>
+<view style="text-align: center; line-height: 100rpx;">注册</view>
+<view class="avatar">
+  <image src='{{avatar}}' bindtap="bindToCamera"></image>
+</view>
+
+<view class="form">
+  <view class="row-group">
+    <input placeholder="昵称" placeholder-class='txt' model:value="{{name}}" bindinput="bindNameChange" />
+  </view>
+
+  <view class="picker-group">
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{objectArray}}" range-key="name">
+<!------------------------------变更，用这个页面测试注册功能，任务描述依然等于name  
+      <view wx:if="{{ index > -1}}" class="picker-txt picker">事情重要程度：{{objectArray[index].name}}</view>
+      <view wx:else class="picker-txt" >请描述事情的重要程度</view>
+  ------------------------------->  
+    </picker>
+  </view>
+  <view>
+    <button class="submit" bindtap="postUser" > 提 交 </button>
+  </view>
+</view>
+

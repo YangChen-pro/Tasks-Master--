@@ -1,0 +1,44 @@
+<!--pages/face/face.wxml-->
+<view class="header">
+  <camera class="camera" device-position="{{ backFront ? 'back' : 'front' }}" flash="off" frame-size="medium"></camera>
+
+
+  <view class="switch" bindtap="switchCamera">
+    <image src="/images/rotate-camera-white.png"></image>
+  </view>
+  <button class="submit" bindtap="takePhoto"> 拍照检测 </button>
+</view>
+
+
+<view class="table">
+  <view class="item">
+    <view class="title">检测记录</view>
+  </view>
+
+  <view class="item" wx:for="{{record}}" wx:for-item="row" wx:key="index">
+    <view class="record">
+      <view class="avatar">
+        <image src="{{row.avatar}}"></image>
+      </view>
+      <view class="desc">
+        <view wx:if="{{row.error_code == 0}}" class="username">检测成功：{{row.result.user_list[0].user_info}}</view>
+        <view wx:else class="username">检测失败</view>
+        <view>
+          <view class="txt-group">
+            <label class="zh">{{row.error_msg}}</label>
+          </view>
+        </view>
+      </view>
+      <view class="delete">
+        <block wx:if="{{row.error_code == 0}}">
+          <label class="fa fa-check-circle" style="color:green"></label>
+        </block>
+        <block wx:else>
+          <label class="fa fa-times-circle" style="color:red"></label>
+        </block>
+
+      </view>
+    </view>
+  </view>
+
+</view>

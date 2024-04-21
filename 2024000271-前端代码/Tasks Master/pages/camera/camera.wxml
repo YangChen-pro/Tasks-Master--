@@ -1,0 +1,15 @@
+<!--pages/camera/camera.wxml-->
+<camera class="camera"  device-position="{{ backFront ? 'back' : 'front' }}"  flash="off" frame-size="medium" ></camera>
+
+
+
+ 
+<view class="function">
+  <view class="switch"> </view>
+  <view class="record" bindtap="takePhoto">
+    <image src="/images/record_on.png"></image>
+  </view>
+  <view class="switch" bindtap="switchCamera">
+    <image src="/images/rotate-camera-white.png"></image>
+  </view>
+ </view>

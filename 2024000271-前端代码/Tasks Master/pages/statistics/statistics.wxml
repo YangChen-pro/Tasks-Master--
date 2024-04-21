@@ -1,0 +1,9 @@
+<view class="container">
+  
+  <view class="menu" wx:for="{{dataList}}" wx:key="index">
+    <view> <label class="fa fa-calendar" ></label>   {{item.create_date}}</view>
+    <label>{{item.count}}个</label>
+  </view>
+
+  
+</view>

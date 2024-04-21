@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/mine/mine",
+    "pages/menu/menu",
+    "pages/index/index",
+    "pages/form/form",
+    "pages/camera/camera",
+    "pages/statistics/statistics",
+    "pages/face/face",
+    "pages/voice/voice",
+    "pages/activity/activity",
+    "pages/goods/goods",
+    "pages/login/login",
+    "pages/myActivity/myActivity",
+    "pages/chatai/chatai",
+    "pages/indexc/indexc",
+    "pages/calendar/calendar",
+    "pages/form_rig/form_rig",
+    "pages/index_rig/index_rig",
+    "pages/tomato/tomato",
+    "pages/exchangeRecord/exchangeRecord",
+    "pages/white/white"
+  ],
+  "tabBar": {
+    "selectedColor": "#b4282d",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/menu/menu",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_select.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/my_select.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Tasks Master",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2"
+}
