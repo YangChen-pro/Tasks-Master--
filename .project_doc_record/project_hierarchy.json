@@ -1,0 +1,1577 @@
+{
+  "2024000271-后端代码/Tasks Master api/manage.py": [
+    {
+      "type": "FunctionDef",
+      "name": "main",
+      "md_content": [
+        "**main**: main函数的作用是运行管理任务。\n**参数**：该函数没有参数。\n**代码描述**：main函数首先设置了环境变量'DJANGO_SETTINGS_MODULE'为'demo_api.settings'。然后尝试导入django.core.management模块中的execute_from_command_line函数。如果导入失败，则会引发ImportError并提供相应的错误信息。最后，通过execute_from_command_line函数执行命令行参数sys.argv。\n**注意**：在使用该函数之前，请确保已安装Django并将其添加到PYTHONPATH环境变量中，同时激活虚拟环境。"
+      ],
+      "code_start_line": 7,
+      "code_end_line": 18,
+      "params": [],
+      "have_return": false,
+      "code_content": "def main():\n    \"\"\"Run administrative tasks.\"\"\"\n    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demo_api.settings')\n    try:\n        from django.core.management import execute_from_command_line\n    except ImportError as exc:\n        raise ImportError(\n            \"Couldn't import Django. Are you sure it's installed and \"\n            \"available on your PYTHONPATH environment variable? Did you \"\n            \"forget to activate a virtual environment?\"\n        ) from exc\n    execute_from_command_line(sys.argv)\n",
+      "name_column": 4,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/demo_api/urls.py": [],
+  "2024000271-后端代码/Tasks Master api/demo_api/wsgi.py": [],
+  "2024000271-后端代码/Tasks Master api/demo_api/asgi.py": [],
+  "2024000271-后端代码/Tasks Master api/demo_api/settings.py": [],
+  "2024000271-后端代码/Tasks Master api/api/tests.py": [],
+  "2024000271-后端代码/Tasks Master api/api/urls.py": [],
+  "2024000271-后端代码/Tasks Master api/api/apps.py": [
+    {
+      "type": "ClassDef",
+      "name": "ApiConfig",
+      "md_content": [
+        "**ApiConfig**: ApiConfig的功能是设置api应用程序的配置。\n\n**attributes**:\n· default_auto_field: 'django.db.models.BigAutoField'\n· name: 'api'\n\n**Code Description**:\nApiConfig类继承自AppConfig类，用于配置api应用程序的相关属性。其中，default_auto_field属性设置为'django.db.models.BigAutoField'，表示默认自动字段为BigAutoField类型；name属性设置为'api'，表示应用程序的名称为'api'。\n\n**Note**:\n- 在使用ApiConfig类时，可以根据需要修改default_auto_field和name属性来定制api应用程序的配置。"
+      ],
+      "code_start_line": 4,
+      "code_end_line": 6,
+      "params": [],
+      "have_return": false,
+      "code_content": "class ApiConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'api'\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/api/models.py": [
+    {
+      "type": "ClassDef",
+      "name": "UserInfo",
+      "md_content": [
+        "**UserInfo**: UserInfo的功能是表示用户信息。\n**属性**：该类的属性。\n· uid: 表示用户ID，类型为CharField。\n· name: 表示姓名，类型为CharField。\n· avatar: 表示头像，类型为FileField。\n· create_date: 表示日期，类型为DateField。\n· score: 表示积分，类型为IntegerField，默认值为0。\n· face_token: 表示FaceToken，类型为CharField。\n\n**代码描述**：UserInfo类是用于表示用户信息的模型类。其中，uid用于存储用户的ID，name用于存储用户的姓名，avatar用于存储用户的头像文件路径，create_date用于记录用户信息创建日期，score用于记录用户的积分，face_token用于存储用户的FaceToken。\n\n在项目中，UserInfo类被其他对象调用。例如，在BankListSerializer中，通过models.UserInfo.objects对用户信息进行统计；在BankListModelSerializer和BankCreateModelSerializer中，设置了对UserInfo模型的序列化规则；在BankView中，通过models.UserInfo.objects对用户信息进行操作；在StatisticsView中，通过models.UserInfo对用户信息进行统计；在ApplyCreateSerializer中，通过models.UserInfo.objects对用户信息进行验证；在ApplyView中，通过models.UserInfo.objects对用户信息进行操作；在ExchangeView中，通过models.UserInfo对用户信息进行操作；在FaceView中，通过models.UserInfo.objects对用户信息进行查询。\n\n**注意**：在使用UserInfo类时，需要根据具体业务需求合理操作用户信息属性，确保数据的准确性和完整性。"
+      ],
+      "code_start_line": 5,
+      "code_end_line": 13,
+      "params": [],
+      "have_return": false,
+      "code_content": "class UserInfo(models.Model):\n    \"\"\" 用户信息 \"\"\"\n    uid = models.CharField(verbose_name=\"ID\", max_length=64)\n\n    name = models.CharField(verbose_name=\"姓名\", max_length=32)\n    avatar = models.FileField(verbose_name=\"头像\", max_length=128, upload_to='bank/%Y/%m/%d/')\n    create_date = models.DateField(verbose_name=\"日期\", auto_now_add=True)\n    score = models.IntegerField(verbose_name=\"积分\", default=0)\n    face_token = models.CharField(verbose_name=\"FaceToken\", max_length=32)\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/BankListSerializer/data",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/BankListModelSerializer/Meta",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/BankCreateModelSerializer/Meta",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/ActivityModelListSerializer/get_exchange",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/BankView",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/StatisticsView",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/FaceView/post",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/MineFilter/filter_queryset",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ApplyCreateSerializer/validate_user_uid",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ApplyView/create",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ExchangeView/get"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "TasksText",
+      "md_content": [
+        "**TasksText**: TasksText的功能是表示任务的具体信息，包括任务具体信息、任务图片记录和任务截止时间。\n\n**attributes**:\n- detail: 任务具体信息，TextField类型，可为空。\n- avatar: 任务图片记录，FileField类型，最大长度为128，上传至指定路径，可为空。\n- deadline: 任务截止时间，CharField类型，最大长度为16。\n\n**Code Description**:\nTasksText是一个模型类，用于表示任务的具体信息。其中，detail属性用于存储任务的具体信息，avatar属性用于记录任务的图片，deadline属性用于表示任务的截止时间。这个模型类被其他部分调用，如在bank.py中的my_BankListSerializer/data中，通过models.TasksText.objects进行数据查询和统计。在bank.py中的my_BankListModelSerializer和my_BankCreateModelSerializer中，TasksText作为model被引用，用于序列化数据。在my_BankView中，TasksText被用于获取所有任务数据并根据请求方法返回不同的序列化类。\n\n**Note**:\n- 在使用TasksText模型类时，可以根据具体需求填写任务的具体信息、任务图片记录和任务截止时间。\n- 需要注意的是，avatar属性上传的文件会保存在指定路径下。"
+      ],
+      "code_start_line": 15,
+      "code_end_line": 23,
+      "params": [],
+      "have_return": false,
+      "code_content": "class TasksText(models.Model):\n    \"\"\" 任务 \"\"\"\n    # 任务具体信息\n    detail = models.TextField(verbose_name=\"任务具体信息\", null=True, blank=True)\n    avatar = models.FileField(verbose_name=\"任务图片记录\", max_length=128, upload_to='bank/%Y/%m/%d/', null=True)\n    #avatar = models.FileField(verbose_name=\"头像\", max_length=128, upload_to='bank/%Y/%m/%d/')\n    # 任务截止时间\n\n    deadline = models.CharField(verbose_name=\"任务截止时间\",max_length=16)\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/my_BankListSerializer/data",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/my_BankListModelSerializer/Meta",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/my_BankCreateModelSerializer/Meta",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/my_BankView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "Activity",
+      "md_content": [
+        "**Activity**: Activity的功能是表示活动。\n\n**属性**:\n· title: 活动标题\n· text: 活动描述\n· date: 举办活动日期\n· count: 报名人数\n· score: 积分\n· xxx: 参与者\n\n**代码描述**:\nActivity类代表了一个活动，具有活动标题、活动描述、举办活动日期、报名人数、积分和参与者等属性。其中，title是CharField类型，表示活动标题；text是TextField类型，表示活动描述；date是DateField类型，表示举办活动日期；count是IntegerField类型，表示报名人数；score是IntegerField类型，表示积分；xxx是ManyToManyField类型，表示参与者，通过JoinRecord关联到UserInfo模型。\n\n在项目中，Activity类被其他对象调用。在bank.py的ActivityView中，Activity类被序列化为ActivityModelListSerializer，用于展示活动列表。在ApplyCreateSerializer中，通过validate_activity_id方法验证活动是否存在。在ApplyView的create方法中，创建了一个新的JoinRecord对象，并更新了对应活动的报名人数。\n\n**注意**: 请注意Activity类的属性和关联对象的使用，确保正确处理活动信息和参与者的关联。"
+      ],
+      "code_start_line": 26,
+      "code_end_line": 38,
+      "params": [],
+      "have_return": false,
+      "code_content": "class Activity(models.Model):\n    \"\"\" 活动 \"\"\"\n    title = models.CharField(verbose_name=\"活动标题\", max_length=128)\n    text = models.TextField(verbose_name=\"活动描述\", null=True, blank=True)\n    date = models.DateField(verbose_name=\"举办活动日期\")\n\n    count = models.IntegerField(verbose_name='报名人数', default=0)\n    score = models.IntegerField(verbose_name=\"积分\", default=0)\n\n    xxx = models.ManyToManyField(verbose_name=\"参与者\",\n                                 through=\"JoinRecord\",\n                                 through_fields=(\"activity\", \"user\"),\n                                 to=\"UserInfo\")\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/ActivityModelListSerializer/Meta",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ActivityView",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ApplyCreateSerializer/validate_activity_id",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ApplyView/create"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "JoinRecord",
+      "md_content": [
+        "**JoinRecord**: JoinRecord的功能是记录活动报名信息。\n**attributes**:\n· user: 用户对象，外键关联到UserInfo模型，级联删除。\n· activity: 活动对象，外键关联到Activity模型，级联删除，related_name为'ac'。\n· exchange: 布尔值，表示是否已兑换，默认为False。\n\n**Code Description**:\nJoinRecord类是用于记录用户报名活动的信息。其中，user属性是一个外键字段，关联到UserInfo模型，表示报名用户，级联删除。activity属性是另一个外键字段，关联到Activity模型，表示所报名的活动，级联删除，并且设置了related_name为'ac'。exchange属性是一个布尔字段，用于标记该报名记录是否已经兑换。\n\n在项目中，JoinRecord类被其他对象调用。在bank.py的ActivityModelListSerializer中的get_exchange方法中，通过过滤user和activity来获取JoinRecord对象，并返回exchange属性的值。在ApplyView的create方法中，创建了JoinRecord对象来记录用户的报名信息，并更新了对应活动的报名人数。在ExchangeView的get方法中，对JoinRecord对象进行了处理，包括标记已兑换、更新用户积分等操作。\n\n**Note**:\n- 在使用JoinRecord类时，需要注意对user和activity属性的赋值，确保关联对象存在。\n- exchange属性表示是否已兑换，可根据实际需求进行处理。"
+      ],
+      "code_start_line": 40,
+      "code_end_line": 45,
+      "params": [],
+      "have_return": false,
+      "code_content": "class JoinRecord(models.Model):\n    \"\"\" 活动报名记录 \"\"\"\n    user = models.ForeignKey(verbose_name='用户', to=\"UserInfo\", on_delete=models.CASCADE)\n    activity = models.ForeignKey(verbose_name=\"活动\", to=\"Activity\", on_delete=models.CASCADE, related_name='ac')\n\n    exchange = models.BooleanField(verbose_name=\"是否已兑换\", default=False)\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/ActivityModelListSerializer/get_exchange",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ApplyView/create",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ExchangeView/get"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "Goods",
+      "md_content": [
+        "**Goods**: Goods的功能是表示商品和服务。\n\n**属性**:\n· img: 图片，类型为ImageField，用于存储商品的图片。\n· title: 标题，类型为CharField，用于存储商品的标题。\n· price: 积分，类型为IntegerField，表示商品的价格，默认值为0。\n\n**代码描述**:\nGoods类是一个Django模型，用于表示商品和服务。其中包含三个属性：img、title和price，分别用于存储商品的图片、标题和价格信息。\n\n在项目中，Goods类被调用于以下位置：\n1. 2024000271-后端代码/Tasks Master api/api/serializers/bank.py中的GoodsListSerializer类的Meta内部，用于指定序列化器的模型和字段。\n2. 2024000271-后端代码/Tasks Master api/api/views/bank.py中的GoodsView类中，将Goods类的所有对象按照id倒序排列，并使用GoodsListSerializer进行序列化。\n\n**注意**:\n- 在使用Goods类时，可以通过img、title和price属性访问和操作商品的相关信息。"
+      ],
+      "code_start_line": 48,
+      "code_end_line": 52,
+      "params": [],
+      "have_return": false,
+      "code_content": "class Goods(models.Model):\n    \"\"\" 商品和服务 \"\"\"\n    img = models.ImageField(verbose_name=\"图片\", max_length=128, upload_to='bank/%Y/%m/%d/')\n    title = models.CharField(verbose_name=\"标题\", max_length=32)\n    price = models.IntegerField(verbose_name=\"积分\", default=0)\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/GoodsListSerializer/Meta",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/GoodsView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/api/admin.py": [],
+  "2024000271-后端代码/Tasks Master api/api/views/bank.py": [
+    {
+      "type": "ClassDef",
+      "name": "BankView",
+      "md_content": [
+        "**BankView**: BankView的功能是处理银行用户信息的API视图，包括列出用户信息、创建用户信息和删除用户信息等操作。\n**属性**：该类的属性。\n· queryset: 查询集，获取所有用户信息并按照ID降序排列。\n\n**代码描述**：BankView类继承自ListAPIView、CreateAPIView和DestroyAPIView，用于处理银行用户信息的API请求。其中，get_serializer_class()方法根据请求方法返回不同的序列化类，如果是POST请求则返回BankCreateModelSerializer，否则返回BankListModelSerializer。\n\n在delete()方法中，首先获取要删除的用户对象，然后调用utils模块中的ai函数删除该用户的人脸数据，最后调用父类的delete()方法完成用户信息的删除操作。\n\n在项目中，BankView类被其他对象调用。例如，在bank.py文件中的BankView中，通过models.UserInfo.objects对用户信息进行操作。\n\n**注意**：在使用BankView类时，需要根据具体业务需求合理处理用户信息的增删改查操作，确保数据的完整性和安全性。\n**Output Example**:\n```python\n{\n    \"message\": \"User information deleted successfully.\"\n}\n```"
+      ],
+      "code_start_line": 24,
+      "code_end_line": 39,
+      "params": [],
+      "have_return": true,
+      "code_content": "class BankView(ListAPIView, CreateAPIView, DestroyAPIView):\n    queryset = models.UserInfo.objects.all().order_by(\"-id\")\n\n    def get_serializer_class(self):\n        if self.request.method == \"POST\":\n            return BankCreateModelSerializer\n        return BankListModelSerializer\n\n\n    #调用ai函数删除ai库的人脸数据\n    def delete(self, request, *args, **kwargs):\n        user_object = self.get_object()\n        from utils import ai\n        ai.delete(user_object.uid, user_object.face_token)\n        response = super().delete(request, *args, **kwargs)\n        return response\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/urls.py"
+      ],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "get_serializer_class",
+      "md_content": [
+        "**get_serializer_class**: get_serializer_class函数的功能是根据请求的方法类型返回相应的序列化器类。\n\n**参数**:\n· 无\n\n**代码描述**:\n在get_serializer_class函数中，通过检查请求的方法类型来确定返回的序列化器类。如果请求方法为\"POST\"，则返回BankCreateModelSerializer；否则返回BankListModelSerializer。\n\n在项目中，get_serializer_class函数被BankView视图中的BankView类调用。根据请求的方法类型，该函数决定了在BankView中使用的序列化器类，以便正确序列化数据。\n\n**注意**: 在使用get_serializer_class函数时，需要确保请求的方法类型与预期一致，以便返回正确的序列化器类。\n\n**输出示例**:\n当请求方法为\"POST\"时，返回BankCreateModelSerializer；否则返回BankListModelSerializer。"
+      ],
+      "code_start_line": 27,
+      "code_end_line": 30,
+      "params": [
+        "self"
+      ],
+      "have_return": true,
+      "code_content": "    def get_serializer_class(self):\n        if self.request.method == \"POST\":\n            return BankCreateModelSerializer\n        return BankListModelSerializer\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/BankListModelSerializer",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/BankCreateModelSerializer"
+      ],
+      "special_reference_type": [
+        false,
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "delete",
+      "md_content": [
+        "**delete**: delete函数的功能是执行删除操作。\n\n**parameters**:\n· request: 请求对象\n· args: 位置参数\n· kwargs: 关键字参数\n\n**Code Description**:\ndelete函数首先获取用户对象，然后调用utils模块中的ai.delete方法，传入用户对象的uid和face_token进行删除操作。最后，调用父类的delete方法处理请求，并返回响应。\n\n**Note**: 请确保在调用delete函数之前已经获取了正确的用户对象，并且utils模块中的ai.delete方法能够正确执行删除操作。\n\n**Output Example**: \nresponse = {\n    'status': 'success',\n    'message': '用户删除成功'\n}"
+      ],
+      "code_start_line": 34,
+      "code_end_line": 39,
+      "params": [
+        "self",
+        "request"
+      ],
+      "have_return": true,
+      "code_content": "    def delete(self, request, *args, **kwargs):\n        user_object = self.get_object()\n        from utils import ai\n        ai.delete(user_object.uid, user_object.face_token)\n        response = super().delete(request, *args, **kwargs)\n        return response\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "my_BankView",
+      "md_content": [
+        "**my_BankView**: my_BankView的功能是根据请求方法返回不同的序列化类。\n\n**attributes**:\n- queryset: 查询集，包含了所有TasksText对象按照id降序排列的结果。\n\n**Code Description**:\nmy_BankView是一个视图类，继承自ListAPIView、CreateAPIView和DestroyAPIView。在get_serializer_class方法中，根据请求方法返回不同的序列化类，如果是POST请求，则返回my_BankCreateModelSerializer，否则返回my_BankListModelSerializer。在delete方法中，获取对象后调用父类的delete方法进行数据删除操作。\n\n在功能上，my_BankView通过继承ListAPIView、CreateAPIView和DestroyAPIView提供了获取列表、创建和删除对象的功能。通过get_serializer_class方法根据请求方法返回不同的序列化类，实现了根据请求的不同返回不同的数据序列化处理。同时，通过queryset属性获取所有TasksText对象并按照id降序排列，为视图类提供数据查询的基础。\n\n在项目中，my_BankView与TasksText模型类密切相关。通过调用models.TasksText.objects进行数据查询和统计，同时在序列化类my_BankListModelSerializer和my_BankCreateModelSerializer中使用TasksText作为model进行数据序列化。因此，my_BankView在处理任务数据时与TasksText模型类紧密合作，实现了对任务数据的获取、创建和删除操作。\n\n**Note**:\n- 在使用my_BankView时，根据请求方法返回的不同序列化类处理数据。\n- 需要注意queryset属性中的数据按照id降序排列。\n- delete方法用于删除对象数据，可根据实际需求进行调用。\n\n**Output Example**:\n```python\n{\n    'id': 1,\n    'detail': '完成文档撰写',\n    'avatar': 'bank/2022/10/15/document.png',\n    'deadline': '2022-10-31'\n}\n```"
+      ],
+      "code_start_line": 42,
+      "code_end_line": 53,
+      "params": [],
+      "have_return": true,
+      "code_content": "class my_BankView(ListAPIView, CreateAPIView, DestroyAPIView):\n    queryset = models.TasksText.objects.all().order_by(\"-id\")\n\n    def get_serializer_class(self):\n        if self.request.method == \"POST\":\n            return my_BankCreateModelSerializer\n        return my_BankListModelSerializer\n    #删除本地的数据\n    def delete(self, request, *args, **kwargs):\n        user_object = self.get_object()\n        response = super().delete(request, *args, **kwargs)\n        return response\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/urls.py"
+      ],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/TasksText"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "get_serializer_class",
+      "md_content": [
+        "**get_serializer_class**: get_serializer_class函数的功能是根据请求方法返回相应的序列化器。\n\n**参数**:\n· self: 表示类实例本身。\n\n**代码描述**:\nget_serializer_class函数首先检查请求的方法类型，如果是POST请求，则返回my_BankCreateModelSerializer序列化器；否则返回my_BankListModelSerializer序列化器。该函数在my_BankView类中被调用，用于根据请求的方法类型选择合适的序列化器。\n\n在项目中，my_BankCreateModelSerializer用于对银行模型进行创建的序列化操作，而my_BankListModelSerializer用于对银行模型进行序列化。get_serializer_class函数的作用是根据请求的方法类型选择合适的序列化器，以便对银行模型进行相应的序列化操作。\n\n**注意**:\n- 确保请求方法类型与期望的序列化器相匹配。\n\n**输出示例**:\n假设请求方法为POST，则get_serializer_class函数将返回my_BankCreateModelSerializer序列化器；否则返回my_BankListModelSerializer序列化器。"
+      ],
+      "code_start_line": 45,
+      "code_end_line": 48,
+      "params": [
+        "self"
+      ],
+      "have_return": true,
+      "code_content": "    def get_serializer_class(self):\n        if self.request.method == \"POST\":\n            return my_BankCreateModelSerializer\n        return my_BankListModelSerializer\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/my_BankListModelSerializer",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/my_BankCreateModelSerializer"
+      ],
+      "special_reference_type": [
+        false,
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "delete",
+      "md_content": [
+        "**delete**: delete函数的作用是执行删除操作。\n\n**parameters**:\n· request: 表示HTTP请求。\n· args: 表示位置参数。\n· kwargs: 表示关键字参数。\n\n**Code Description**:\ndelete函数首先通过self.get_object()获取用户对象(user_object)，然后调用父类的delete方法执行删除操作，最后返回删除操作的响应response。\n\n**Note**: 请确保在调用delete函数时传入正确的参数，以确保删除操作能够成功执行。\n\n**Output Example**:\n返回删除操作的响应。"
+      ],
+      "code_start_line": 50,
+      "code_end_line": 53,
+      "params": [
+        "self",
+        "request"
+      ],
+      "have_return": true,
+      "code_content": "    def delete(self, request, *args, **kwargs):\n        user_object = self.get_object()\n        response = super().delete(request, *args, **kwargs)\n        return response\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "StatisticsView",
+      "md_content": [
+        "**StatisticsView**: StatisticsView的功能是对用户信息数据进行统计并按照创建日期降序排列。\n\n**属性**：该类的属性。\n· queryset: 查询集，用于对用户信息按照创建日期进行统计并降序排列。\n· serializer_class: 序列化器类，使用StatisticsListSerializer对数据进行序列化处理。\n\n**代码描述**：StatisticsView是一个视图类，继承自ListAPIView，用于对用户信息数据进行统计。在该类中，queryset属性通过对models.UserInfo进行查询和统计，按照create_date字段降序排列；serializer_class属性指定了用于序列化数据的StatisticsListSerializer类。在项目中，StatisticsView被用于统计每个创建日期的用户数量，并在Bank.py中的bank.py文件中被调用。\n\n**注意**：在使用StatisticsView时，需要注意queryset的排序规则，以确保统计结果的准确性。"
+      ],
+      "code_start_line": 56,
+      "code_end_line": 59,
+      "params": [],
+      "have_return": false,
+      "code_content": "class StatisticsView(ListAPIView):\n    queryset = models.UserInfo.objects.values('create_date').annotate(count=Count('create_date')).order_by(\n        \"-create_date\")\n    serializer_class = StatisticsListSerializer\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/urls.py"
+      ],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/StatisticsListSerializer"
+      ],
+      "special_reference_type": [
+        false,
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "FaceView",
+      "md_content": [
+        "**FaceView**: FaceView的功能是进行人脸检测，根据用户提交的图片进行人脸搜索。\n\n**attributes**:\n- request: 用于接收请求数据的对象。\n- args: 位置参数。\n- kwargs: 关键字参数。\n\n**Code Description**:\nFaceView类包含一个post方法，用于处理POST请求。在方法内部，首先获取请求中的avatar对象，如果未提交图像则返回错误响应。接着调用utils模块中的ai.search方法进行人脸搜索，获取搜索结果。如果搜索结果中无错误，则根据用户ID查询用户信息表中的得分信息。最终返回包含搜索结果、状态和得分的响应。\n\n在项目中，FaceView类被调用来处理用户提交的图片进行人脸搜索的请求。\n\n**Note**: 请确保请求中包含avatar对象，否则将返回错误响应。\n\n**Output Example**:\n{\n    \"content\": {\n        \"error_code\": 0,\n        \"result\": {\n            \"user_list\": [\n                {\n                    \"user_id\": \"12345\"\n                }\n            ]\n        }\n    },\n    \"status\": True,\n    \"score\": 80\n}"
+      ],
+      "code_start_line": 63,
+      "code_end_line": 79,
+      "params": [],
+      "have_return": true,
+      "code_content": "class FaceView(APIView):\n    #人脸检测，用户提交图片，后台根据图片进行人脸搜索。\n    def post(self, request, *args, **kwargs):\n        avatar_object = request.data.get('avatar')\n        if not avatar_object:\n            return Response({\"msg\": \"未提交图像\", \"status\": False})\n        from utils import ai\n        result = ai.search(avatar_object)\n\n        print(result)\n\n        score = 0\n        if result[\"error_code\"] == 0:\n            user_id = result[\"result\"]['user_list'][0]['user_id']\n            obj = models.UserInfo.objects.filter(uid=user_id).first()\n            score = obj.score\n        return Response({\"content\": result, \"status\": True, 'score': score})\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/urls.py"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "post",
+      "md_content": [
+        "**post**: post函数的功能是处理用户提交的图像数据，进行人脸搜索匹配，并返回匹配结果及用户得分。\n\n**参数**:\n· request: 请求对象，包含用户提交的数据。\n· args: 位置参数。\n· kwargs: 关键字参数。\n\n**代码描述**:\npost函数首先从请求数据中获取用户提交的图像数据，然后调用utils模块中的ai模块的search函数进行人脸搜索匹配。匹配成功后，获取匹配结果中的用户ID，并通过该ID查询数据库中对应用户的得分。最后，返回包含匹配结果、状态和用户得分的响应数据。\n\n在项目中，post函数位于bank.py文件中的FaceView类中，用于处理用户提交的图像数据并进行人脸搜索匹配。该函数依赖于utils模块中的ai模块的search函数，通过调用该函数实现人脸搜索功能。同时，post函数与UserInfo模型类进行交互，根据匹配结果获取用户得分信息。\n\n**注意**: 在使用post函数时，需要确保请求中包含有效的图像数据。另外，需要安装requests库用于发送HTTP请求，以及base64库用于进行base64编码。\n\n**输出示例**:\n{\n    \"content\": {\n        \"error_code\": 0,\n        \"result\": {\n            \"user_list\": [\n                {\n                    \"user_id\": \"123456\"\n                }\n            ]\n        }\n    },\n    \"status\": True,\n    \"score\": 80\n}"
+      ],
+      "code_start_line": 65,
+      "code_end_line": 79,
+      "params": [
+        "self",
+        "request"
+      ],
+      "have_return": true,
+      "code_content": "    def post(self, request, *args, **kwargs):\n        avatar_object = request.data.get('avatar')\n        if not avatar_object:\n            return Response({\"msg\": \"未提交图像\", \"status\": False})\n        from utils import ai\n        result = ai.search(avatar_object)\n\n        print(result)\n\n        score = 0\n        if result[\"error_code\"] == 0:\n            user_id = result[\"result\"]['user_list'][0]['user_id']\n            obj = models.UserInfo.objects.filter(uid=user_id).first()\n            score = obj.score\n        return Response({\"content\": result, \"status\": True, 'score': score})\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo",
+        "2024000271-后端代码/Tasks Master api/utils/ai.py/search"
+      ],
+      "special_reference_type": [
+        false,
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "PullDownFilter",
+      "md_content": [
+        "**PullDownFilter**: PullDownFilter的功能是根据请求中的max_id参数过滤查询集。\n\n**attributes**:\n· request: 表示HTTP请求对象。\n· queryset: 表示要过滤的查询集。\n· view: 表示视图对象。\n\n**Code Description**:\nPullDownFilter类继承自BaseFilterBackend类，其中包含filter_queryset方法用于根据请求中的max_id参数过滤查询集。如果请求中存在max_id参数，则将查询集中id大于max_id的数据筛选出来并返回。\n\n在项目中，PullDownFilter类被ActivityView类调用，作为ActivityView类的一个过滤后端，用于处理请求中的max_id参数，根据该参数对查询集进行过滤操作。\n\n**Note**: \n在使用PullDownFilter类时，需要确保请求中包含max_id参数，以便正确过滤查询集。\n\n**Output Example**:\n如果请求中的max_id参数为7，则根据该参数过滤后的查询集可能如下所示：\n[8, 9, 10]"
+      ],
+      "code_start_line": 84,
+      "code_end_line": 90,
+      "params": [],
+      "have_return": true,
+      "code_content": "class PullDownFilter(BaseFilterBackend):\n    def filter_queryset(self, request, queryset, view):\n        max_id = request.query_params.get(\"max_id\")\n        if max_id:\n            # [9, 8, 7 ]   [7,8,9]\n            queryset = queryset.filter(id__gt=max_id)\n        return queryset\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ActivityView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "filter_queryset",
+      "md_content": [
+        "**filter_queryset**: filter_queryset函数的作用是根据请求中的max_id参数过滤查询集。\n\n**参数**:\n· request: 表示HTTP请求对象。\n· queryset: 表示要过滤的查询集。\n· view: 表示视图对象。\n\n**代码描述**:\n该函数首先获取请求中的max_id参数的值。如果存在max_id参数，则将查询集按照id字段大于max_id的条件进行过滤。最后返回过滤后的查询集。\n\n**注意**: 在使用该函数时，确保传入正确的参数，并理解max_id参数的作用。\n\n**输出示例**:\n假设max_id为8，原查询集为[7, 8, 9]，则经过过滤后的查询集为[9]。"
+      ],
+      "code_start_line": 85,
+      "code_end_line": 90,
+      "params": [
+        "self",
+        "request",
+        "queryset",
+        "view"
+      ],
+      "have_return": true,
+      "code_content": "    def filter_queryset(self, request, queryset, view):\n        max_id = request.query_params.get(\"max_id\")\n        if max_id:\n            # [9, 8, 7 ]   [7,8,9]\n            queryset = queryset.filter(id__gt=max_id)\n        return queryset\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "ReachBottomFilter",
+      "md_content": [
+        "**ReachBottomFilter**: ReachBottomFilter的功能是根据请求中的min_id参数过滤查询集，仅返回id小于min_id的结果。\n\n**attributes**:\n· request: 请求对象，包含查询参数\n· queryset: 查询集\n· view: 视图对象\n\n**Code Description**:\nReachBottomFilter类继承自BaseFilterBackend类，其中包含filter_queryset方法用于过滤查询集。当请求中存在min_id参数时，将查询集中id小于min_id的结果返回。\n\n在项目中，ReachBottomFilter被ActivityView类调用，作为ActivityView类的一个过滤后端，用于处理请求中的min_id参数，根据该参数过滤Activity对象的查询集。\n\n**Note**:\n请确保请求中包含min_id参数以便ReachBottomFilter正确过滤查询集。\n\n**Output Example**:\n```python\n# 示例中min_id为5，过滤查询集中id小于5的结果\nfiltered_queryset = ReachBottomFilter().filter_queryset(request, queryset, view)\n```"
+      ],
+      "code_start_line": 93,
+      "code_end_line": 98,
+      "params": [],
+      "have_return": true,
+      "code_content": "class ReachBottomFilter(BaseFilterBackend):\n    def filter_queryset(self, request, queryset, view):\n        min_id = request.query_params.get(\"min_id\")\n        if min_id:\n            queryset = queryset.filter(id__lt=min_id)\n        return queryset\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ActivityView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "filter_queryset",
+      "md_content": [
+        "**filter_queryset**: filter_queryset函数的作用是根据请求中的最小ID参数对查询集进行过滤。\n\n**parameters**:\n· request: 表示HTTP请求对象。\n· queryset: 表示要过滤的查询集。\n· view: 表示视图对象。\n\n**Code Description**:\n该函数接收HTTP请求对象（request）、查询集（queryset）和视图对象（view）作为参数。首先，它从请求的查询参数中获取最小ID值（min_id）。如果最小ID值存在，则将查询集按照ID小于最小ID值的条件进行过滤。最后，返回过滤后的查询集。\n\n**Note**:\n请确保请求对象中包含名为\"min_id\"的查询参数，以便正确过滤查询集。\n\n**Output Example**:\n假设请求中的min_id为5，初始查询集为[1, 2, 3, 4, 5, 6, 7]，经过filter_queryset函数处理后，返回的过滤后查询集为[1, 2, 3, 4]。"
+      ],
+      "code_start_line": 94,
+      "code_end_line": 98,
+      "params": [
+        "self",
+        "request",
+        "queryset",
+        "view"
+      ],
+      "have_return": true,
+      "code_content": "    def filter_queryset(self, request, queryset, view):\n        min_id = request.query_params.get(\"min_id\")\n        if min_id:\n            queryset = queryset.filter(id__lt=min_id)\n        return queryset\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "MineFilter",
+      "md_content": [
+        "**MineFilter**: MineFilter的功能是根据请求中的用户ID筛选查询集。\n\n**attributes**:\n- request: 表示HTTP请求对象。\n- queryset: 表示要筛选的查询集。\n- view: 表示视图对象。\n\n**Code Description**:\nMineFilter类继承自BaseFilterBackend类，其中包含filter_queryset方法用于根据请求中的用户ID筛选查询集。首先，从请求的query_params中获取用户ID，如果不存在则返回原始查询集。接着，通过用户ID在models.UserInfo中过滤用户对象，如果用户对象不存在则返回空查询集。最后，根据用户对象的属性筛选原始查询集，并返回筛选后的查询集。\n\n在项目中，MineFilter类被ActivityView类调用，作为ActivityView类的filter_backends之一，用于在ActivityView视图中根据用户ID筛选查询集。\n\n**Note**:\n- 确保在使用MineFilter类时，传入正确的请求对象、查询集和视图对象。\n- 确保models.UserInfo中存在与请求中用户ID对应的用户对象。\n\n**Output Example**:\n示例中的返回值可能是筛选后的查询集。"
+      ],
+      "code_start_line": 100,
+      "code_end_line": 111,
+      "params": [],
+      "have_return": true,
+      "code_content": "class MineFilter(BaseFilterBackend):\n    def filter_queryset(self, request, queryset, view):\n        uid = request.query_params.get(\"user_id\")\n        if not uid:\n            return queryset\n\n        user_object = models.UserInfo.objects.filter(uid=uid).first()\n        if not user_object:\n            return queryset.none()\n\n        queryset = queryset.filter(ac__user=user_object)\n        return queryset\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ActivityView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "filter_queryset",
+      "md_content": [
+        "**filter_queryset**: filter_queryset函数的功能是根据请求中的用户ID筛选查询集。\n\n**参数**：该函数的参数。\n· request: 表示请求对象，包含用户ID信息。\n· queryset: 表示待筛选的查询集。\n· view: 表示视图对象。\n\n**代码描述**：filter_queryset函数接收请求对象request、待筛选的查询集queryset以及视图对象view作为参数。函数首先从请求的query_params中获取用户ID(uid)，若不存在用户ID，则返回原查询集。接着通过用户ID在UserInfo模型中查询用户对象user_object，若用户对象不存在，则返回空查询集。最后，根据用户对象筛选查询集中的数据，并返回筛选后的查询集。\n\n在项目中，filter_queryset函数被MineFilter类调用，用于根据用户ID筛选查询集。此外，filter_queryset函数涉及到UserInfo模型，通过该模型查询用户对象以进行数据筛选操作。\n\n**注意**：在使用filter_queryset函数时，需确保请求中包含有效的用户ID信息，以便进行准确的数据筛选操作。\n\n**输出示例**：示例查询集对象。"
+      ],
+      "code_start_line": 101,
+      "code_end_line": 111,
+      "params": [
+        "self",
+        "request",
+        "queryset",
+        "view"
+      ],
+      "have_return": true,
+      "code_content": "    def filter_queryset(self, request, queryset, view):\n        uid = request.query_params.get(\"user_id\")\n        if not uid:\n            return queryset\n\n        user_object = models.UserInfo.objects.filter(uid=uid).first()\n        if not user_object:\n            return queryset.none()\n\n        queryset = queryset.filter(ac__user=user_object)\n        return queryset\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "DemoLimitOffsetPagination",
+      "md_content": [
+        "**DemoLimitOffsetPagination**: DemoLimitOffsetPagination的功能是实现限制偏移分页功能。\n\n**attributes**:\n· default_limit: 默认限制为2\n\n**Code Description**:\nDemoLimitOffsetPagination类继承自LimitOffsetPagination类，其中default_limit属性设置为2。该类包含以下方法：\n- get_offset(self, request): 返回偏移量0。\n- get_paginated_response(self, data): 返回响应Response(data)。\n\n在项目中，DemoLimitOffsetPagination类被ActivityView类调用。ActivityView类是一个ListAPIView，其中定义了queryset、serializer_class、filter_backends和pagination_class等属性。在pagination_class中使用了DemoLimitOffsetPagination类来实现限制偏移分页功能。在paginate_queryset方法中，根据请求的query_params中的max_id参数来判断是否需要分页查询数据。\n\n**Note**: \n请注意，在使用DemoLimitOffsetPagination类时，可以根据实际需求调整default_limit属性的值。\n\n**Output Example**:\n```python\n{\n    'data': [\n        {'id': 1, 'name': 'Item 1'},\n        {'id': 2, 'name': 'Item 2'}\n    ]\n}\n```"
+      ],
+      "code_start_line": 117,
+      "code_end_line": 124,
+      "params": [],
+      "have_return": true,
+      "code_content": "class DemoLimitOffsetPagination(LimitOffsetPagination):\n    default_limit = 2\n\n    def get_offset(self, request):\n        return 0\n\n    def get_paginated_response(self, data):\n        return Response(data)\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ActivityView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "get_offset",
+      "md_content": [
+        "**get_offset**: get_offset函数的功能是返回0。\n**参数**：该函数接受一个参数request。\n**Code Description**：该函数接受一个request参数，并返回整数0作为偏移量。\n**注意**：无特殊注意事项。\n**Output Example**：0"
+      ],
+      "code_start_line": 120,
+      "code_end_line": 121,
+      "params": [
+        "self",
+        "request"
+      ],
+      "have_return": true,
+      "code_content": "    def get_offset(self, request):\n        return 0\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "get_paginated_response",
+      "md_content": [
+        "**get_paginated_response**: get_paginated_response函数的功能是返回一个Response对象。\n\n**参数**：此函数的参数为：\n· data: 包含分页数据的对象。\n\n**代码描述**：该函数接收一个包含分页数据的对象作为参数，并返回一个Response对象。\n\n**注意**：在调用该函数时，请确保传入正确格式的数据对象。\n\n**输出示例**：假设传入的data为{'results': [1, 2, 3], 'count': 3}，则函数将返回一个Response对象。"
+      ],
+      "code_start_line": 123,
+      "code_end_line": 124,
+      "params": [
+        "self",
+        "data"
+      ],
+      "have_return": true,
+      "code_content": "    def get_paginated_response(self, data):\n        return Response(data)\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "ActivityView",
+      "md_content": [
+        "**ActivityView**: ActivityView的功能是展示活动列表。\n\n**属性**:\n· queryset: 查询集，表示要展示的活动对象列表。\n· serializer_class: 序列化类，用于将活动对象序列化为JSON格式。\n· filter_backends: 过滤后端列表，用于对查询集进行过滤操作。\n· pagination_class: 分页类，用于实现分页功能。\n\n**代码描述**:\nActivityView是一个继承自ListAPIView的类，用于展示活动列表。在该类中，定义了queryset属性，表示要展示的活动对象列表，通过models.Activity.objects.all().order_by('-id')获取。serializer_class属性指定了序列化类ActivityModelListSerializer，用于将活动对象序列化为JSON格式。filter_backends属性是一个过滤后端列表，包含了MineFilter、PullDownFilter和ReachBottomFilter三个过滤器，用于对查询集进行过滤操作。pagination_class属性指定了DemoLimitOffsetPagination类，用于实现限制偏移分页功能。\n\n在ActivityView类中，定义了paginate_queryset方法，用于根据请求的query_params中的max_id参数来判断是否需要分页查询数据。如果max_id存在，则不进行分页查询，直接返回None；否则，调用父类的paginate_queryset方法对查询集进行分页处理。\n\n在项目中，ActivityView类被其他对象调用。在api.urls.py中，ActivityView类被映射到\"/activity/\"路径，用于展示活动列表。在bank.py的ActivityView中，ActivityView类被作为视图类使用，用于展示活动列表。\n\n**注意**: 在使用ActivityView类时，需要确保传入正确的查询集、序列化类、过滤后端列表和分页类。\n\n**输出示例**:\n```python\n{\n    'data': [\n        {'id': 1, 'title': 'Activity 1'},\n        {'id': 2, 'title': 'Activity 2'}\n    ]\n}\n```"
+      ],
+      "code_start_line": 127,
+      "code_end_line": 137,
+      "params": [],
+      "have_return": true,
+      "code_content": "class ActivityView(ListAPIView):\n    queryset = models.Activity.objects.all().order_by('-id')\n    serializer_class = ActivityModelListSerializer\n    filter_backends = [MineFilter, PullDownFilter, ReachBottomFilter]\n    pagination_class = DemoLimitOffsetPagination\n\n    def paginate_queryset(self, queryset):\n        max_id = self.request.query_params.get(\"max_id\")\n        if max_id:\n            return\n        return super().paginate_queryset(queryset)\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/urls.py"
+      ],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/Activity",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/PullDownFilter",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ReachBottomFilter",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/MineFilter",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/DemoLimitOffsetPagination",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/ActivityModelListSerializer"
+      ],
+      "special_reference_type": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "paginate_queryset",
+      "md_content": [
+        "**paginate_queryset**: paginate_queryset函数的作用是对查询集进行分页处理。\n\n**parameters**:\n· queryset: 要进行分页处理的查询集。\n\n**Code Description**:\n该函数接收一个查询集作为参数，并通过检查请求的查询参数中是否存在\"max_id\"来决定是否进行分页处理。如果存在\"max_id\"参数，则直接返回，否则调用父类的paginate_queryset方法对查询集进行分页处理。\n\n**Note**:\n在调用该函数时，需要确保传入正确的查询集参数。\n\n**Output Example**:\n假设请求的查询参数中不存在\"max_id\"，则对查询集进行分页处理。"
+      ],
+      "code_start_line": 133,
+      "code_end_line": 137,
+      "params": [
+        "self",
+        "queryset"
+      ],
+      "have_return": true,
+      "code_content": "    def paginate_queryset(self, queryset):\n        max_id = self.request.query_params.get(\"max_id\")\n        if max_id:\n            return\n        return super().paginate_queryset(queryset)\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "GoodsView",
+      "md_content": [
+        "**GoodsView**: GoodsView的功能是通过ListAPIView显示所有Goods对象，并按照id倒序排列。\n\n**属性**:\n· queryset: models.Goods.objects.all().order_by('-id')\n· serializer_class: GoodsListSerializer\n\n**代码描述**:\nGoodsView是一个基于ListAPIView的子类，用于显示所有Goods对象，并按照id倒序排列。其中，queryset被设置为获取所有Goods对象并按照id倒序排列，serializer_class被设置为GoodsListSerializer，以便在视图中使用GoodsListSerializer对Goods对象进行序列化。\n\n在项目中，GoodsView类被调用于api/views/bank.py中。在GoodsView类中，通过设置queryset和serializer_class，实现了对Goods对象的展示和序列化操作。\n\n**注意**:\n- 确保在使用GoodsView时，能正确显示和序列化所有Goods对象。\n- GoodsView依赖于GoodsListSerializer对Goods对象进行序列化，因此需要保证GoodsListSerializer的正确性。"
+      ],
+      "code_start_line": 140,
+      "code_end_line": 142,
+      "params": [],
+      "have_return": false,
+      "code_content": "class GoodsView(ListAPIView):\n    queryset = models.Goods.objects.all().order_by('-id')\n    serializer_class = GoodsListSerializer\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/urls.py"
+      ],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/Goods",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/GoodsListSerializer"
+      ],
+      "special_reference_type": [
+        false,
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "ApplyCreateSerializer",
+      "md_content": [
+        "**ApplyCreateSerializer**: ApplyCreateSerializer的功能是验证用户UID和活动ID的有效性。\n\n**attributes**:\n- user_uid: 字符串类型，表示用户UID。\n- activity_id: 整数类型，表示活动ID。\n\n**Code Description**:\nApplyCreateSerializer类包含两个属性user_uid和activity_id，分别用于验证用户UID和活动ID的有效性。validate_user_uid方法用于验证用户UID是否存在于数据库中，若不存在则抛出异常。validate_activity_id方法用于验证活动ID是否存在于数据库中，若不存在则抛出异常。\n\n在项目中，ApplyCreateSerializer类被ApplyView类调用。ApplyView类是一个CreateAPIView类的子类，其中serializer_class属性指定为ApplyCreateSerializer。在create方法中，首先通过serializer获取请求数据并进行有效性验证。然后根据activity_id和user_uid查询数据库，检查用户是否已经报名该活动。若用户已报名，则返回相应错误信息；否则创建报名记录，并更新活动的参与人数。最终返回报名结果。\n\n**Note**: \n- 需要确保用户UID和活动ID存在于数据库中，否则会抛出异常。\n- ApplyCreateSerializer类主要用于验证用户UID和活动ID的有效性，以确保数据的完整性。\n\n**Output Example**:\n{\"status\": True, 'msg': \"报名成功\"}"
+      ],
+      "code_start_line": 148,
+      "code_end_line": 162,
+      "params": [],
+      "have_return": true,
+      "code_content": "class ApplyCreateSerializer(serializers.Serializer):\n    user_uid = serializers.CharField()\n    activity_id = serializers.IntegerField()\n\n    def validate_user_uid(self, value):\n        user_object = models.UserInfo.objects.filter(uid=value).first()\n        if not user_object:\n            raise exceptions.ValidationError(\"用户不存在\")\n        return value\n\n    def validate_activity_id(self, value):\n        activity_object = models.Activity.objects.filter(id=value).first()\n        if not activity_object:\n            raise exceptions.ValidationError(\"活动不存在\")\n        return value\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ApplyView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "validate_user_uid",
+      "md_content": [
+        "**validate_user_uid**: validate_user_uid函数的功能是验证用户UID是否存在于数据库中。\n\n**参数**：该函数接受一个参数：\n· value: 表示用户UID。\n\n**代码描述**：validate_user_uid函数首先通过models.UserInfo.objects.filter(uid=value)查询数据库中是否存在对应的用户信息。如果未找到用户信息，则引发exceptions.ValidationError异常，提示用户不存在。最后返回用户UID。\n\n在项目中，validate_user_uid函数被ApplyCreateSerializer对象调用，用于验证用户UID的有效性。\n\n**注意**：在使用validate_user_uid函数时，应确保传入的用户UID存在于数据库中，以确保数据的准确性和完整性。\n\n**输出示例**：返回用户UID。"
+      ],
+      "code_start_line": 152,
+      "code_end_line": 156,
+      "params": [
+        "self",
+        "value"
+      ],
+      "have_return": true,
+      "code_content": "    def validate_user_uid(self, value):\n        user_object = models.UserInfo.objects.filter(uid=value).first()\n        if not user_object:\n            raise exceptions.ValidationError(\"用户不存在\")\n        return value\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "validate_activity_id",
+      "md_content": [
+        "**validate_activity_id**: validate_activity_id函数的功能是验证活动是否存在。\n\n**参数**:\n· value: 待验证的活动ID值\n\n**代码描述**:\nvalidate_activity_id函数接收一个活动ID值作为参数，通过查询Activity模型来检查是否存在对应ID的活动。如果未找到对应活动，则引发ValidationError异常并返回错误消息\"活动不存在\"；否则，返回传入的活动ID值。\n\n在项目中，validate_activity_id方法在ApplyCreateSerializer中被调用，用于验证活动是否存在。该方法通过查询Activity模型来确认活动的存在性，确保在创建新的JoinRecord对象时，关联的活动是有效的。\n\n**注意**: 在使用validate_activity_id方法时，请确保传入有效的活动ID值，以便正确验证活动的存在性。\n\n**输出示例**:\n如果活动ID值存在，则返回该值；否则，引发ValidationError异常。"
+      ],
+      "code_start_line": 158,
+      "code_end_line": 162,
+      "params": [
+        "self",
+        "value"
+      ],
+      "have_return": true,
+      "code_content": "    def validate_activity_id(self, value):\n        activity_object = models.Activity.objects.filter(id=value).first()\n        if not activity_object:\n            raise exceptions.ValidationError(\"活动不存在\")\n        return value\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/Activity"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "ApplyView",
+      "md_content": [
+        "**ApplyView**: ApplyView的功能是处理用户报名活动的请求。\n\n**attributes**:\n- 无\n\n**Code Description**:\nApplyView类继承自CreateAPIView类，其中serializer_class属性指定为ApplyCreateSerializer。在create方法中，首先通过serializer获取请求数据并进行有效性验证。然后根据activity_id和user_uid查询数据库，检查用户是否已经报名该活动。若用户已报名，则返回相应错误信息；否则创建报名记录，并更新活动的参与人数。最终返回报名结果。\n\n在项目中，ApplyView类被其他部分调用以处理用户报名活动的请求。\n\n**Note**: \n- 需要确保用户UID和活动ID存在于数据库中，否则会抛出异常。\n\n**Output Example**:\n{\"status\": True, 'msg': \"报名成功\"}"
+      ],
+      "code_start_line": 165,
+      "code_end_line": 187,
+      "params": [],
+      "have_return": true,
+      "code_content": "class ApplyView(CreateAPIView):\n    serializer_class = ApplyCreateSerializer\n\n    def create(self, request, *args, **kwargs):\n        serializer = self.get_serializer(data=request.data)\n        serializer.is_valid(raise_exception=True)\n\n        activity_id = serializer.data.get('activity_id')\n        user_uid = serializer.data.get('user_uid')\n\n        exists = models.JoinRecord.objects.filter(activity_id=activity_id, user__uid=user_uid).exists()\n        if exists:\n            return Response({\"status\": False, 'error': \"此用户已报名\"})\n\n        user_object = models.UserInfo.objects.filter(uid=user_uid).first()\n        models.JoinRecord.objects.create(\n            activity_id=activity_id,\n            user=user_object\n        )\n\n        models.Activity.objects.filter(id=activity_id).update(count=F(\"count\") + 1)\n\n        return Response({\"status\": True, 'msg': \"报名成功\"})\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/urls.py"
+      ],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ApplyCreateSerializer"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "create",
+      "md_content": [
+        "**create**: create函数的功能是处理用户报名活动的请求，创建报名记录并更新对应活动的报名人数。\n\n**参数**:\n· request: 表示HTTP请求对象。\n· args: 表示位置参数。\n· kwargs: 表示关键字参数。\n\n**代码描述**:\ncreate函数首先通过获取serializer对象并验证数据的有效性，获取活动ID和用户ID。然后检查是否存在相同的报名记录，若存在则返回报名失败信息。接着查询用户对象，创建新的JoinRecord对象记录用户的报名信息，并更新对应活动的报名人数。最后返回报名成功的信息。\n\n在该函数中，涉及到对models.JoinRecord、models.UserInfo和models.Activity的操作。通过models.UserInfo对象查询用户信息，创建新的JoinRecord对象记录报名信息，以及更新对应活动的报名人数。\n\n**注意**: 在使用create函数时，需要确保传入正确的请求参数，并处理报名成功和失败的情况。\n\n**输出示例**:\n{\"status\": True, 'msg': \"报名成功\"}"
+      ],
+      "code_start_line": 168,
+      "code_end_line": 187,
+      "params": [
+        "self",
+        "request"
+      ],
+      "have_return": true,
+      "code_content": "    def create(self, request, *args, **kwargs):\n        serializer = self.get_serializer(data=request.data)\n        serializer.is_valid(raise_exception=True)\n\n        activity_id = serializer.data.get('activity_id')\n        user_uid = serializer.data.get('user_uid')\n\n        exists = models.JoinRecord.objects.filter(activity_id=activity_id, user__uid=user_uid).exists()\n        if exists:\n            return Response({\"status\": False, 'error': \"此用户已报名\"})\n\n        user_object = models.UserInfo.objects.filter(uid=user_uid).first()\n        models.JoinRecord.objects.create(\n            activity_id=activity_id,\n            user=user_object\n        )\n\n        models.Activity.objects.filter(id=activity_id).update(count=F(\"count\") + 1)\n\n        return Response({\"status\": True, 'msg': \"报名成功\"})\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo",
+        "2024000271-后端代码/Tasks Master api/api/models.py/Activity",
+        "2024000271-后端代码/Tasks Master api/api/models.py/JoinRecord"
+      ],
+      "special_reference_type": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "ExchangeView",
+      "md_content": [
+        "**ExchangeView**: ExchangeView的功能是处理用户申请兑换活动积分的逻辑。\n\n**attributes**:\n- request: 表示HTTP请求对象。\n- args: 位置参数。\n- kwargs: 关键字参数。\n\n**Code Description**:\nExchangeView类继承自APIView类，其中定义了一个处理GET请求的方法get。在get方法中，首先获取请求中的user_id和activity_id参数，然后通过这些参数查询用户信息和参与记录。如果未找到参与记录，则返回一个包含错误信息的响应。接着检查参与记录中的exchange字段，如果已经申请过兑换，则返回相应的错误信息。如果未申请过兑换，则将exchange字段设置为True，并保存记录。然后更新用户的积分信息，并返回一个包含成功信息和用户积分的响应。\n\n在项目中，ExchangeView类被调用来处理用户申请兑换活动积分的请求。\n\n**Note**: \n- 确保在调用ExchangeView类时传入正确的user_id和activity_id参数。\n- 确保用户在申请兑换前未重复申请。\n\n**Output Example**:\n{'status': True, \"msg\": \"申请成功\", \"score\": user_object.score}"
+      ],
+      "code_start_line": 190,
+      "code_end_line": 209,
+      "params": [],
+      "have_return": true,
+      "code_content": "class ExchangeView(APIView):\n\n    def get(self, request, *args, **kwargs):\n        user_id = request.query_params.get('user_id')\n        activity_id = request.query_params.get('activity_id')\n        user_object = models.UserInfo.objects.filter(uid=user_id).first()\n        record_object = models.JoinRecord.objects.filter(user=user_object, activity_id=activity_id).first()\n        if not record_object:\n            return Response({'status': False, \"error\": \"数据不存在\"})\n\n        if record_object.exchange:\n            return Response({'status': False, \"error\": \"已申请，不能重复申请\"})\n\n        record_object.exchange = True\n        record_object.save()\n\n        user_object.score = user_object.score + record_object.activity.score\n        user_object.save()\n\n        return Response({'status': True, \"msg\": \"申请成功\", \"score\": user_object.score})\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/urls.py"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "get",
+      "md_content": [
+        "**get**: get函数的功能是处理用户申请兑换操作。\n\n**参数**：该函数的参数。\n· request: 请求对象，包含用户的请求信息。\n· *args: 位置参数。\n· **kwargs: 关键字参数。\n\n**代码描述**：get函数首先从请求的查询参数中获取用户ID和活动ID，然后通过用户ID查询用户对象user_object和通过用户对象和活动ID查询报名记录对象record_object。若未找到报名记录对象，则返回数据不存在的错误信息。接着，检查报名记录对象的exchange属性，若已申请过兑换，则返回不能重复申请的错误信息。若未申请过兑换，则将exchange属性设置为True并保存。随后，更新用户对象的积分，将用户对象的积分增加对应活动的积分值。最后，返回申请成功的消息以及更新后的用户积分信息。\n\n在项目中，get函数涉及到对用户信息和报名记录的查询和操作，以及对用户积分的更新。通过调用models.UserInfo和models.JoinRecord进行用户信息和报名记录的查询和操作，实现了用户申请兑换的功能。\n\n**注意**：在使用get函数时，需要确保传入正确的请求信息，并根据业务逻辑处理用户的申请兑换操作。\n\n**输出示例**：\n{'status': True, \"msg\": \"申请成功\", \"score\": user_object.score}"
+      ],
+      "code_start_line": 192,
+      "code_end_line": 209,
+      "params": [
+        "self",
+        "request"
+      ],
+      "have_return": true,
+      "code_content": "    def get(self, request, *args, **kwargs):\n        user_id = request.query_params.get('user_id')\n        activity_id = request.query_params.get('activity_id')\n        user_object = models.UserInfo.objects.filter(uid=user_id).first()\n        record_object = models.JoinRecord.objects.filter(user=user_object, activity_id=activity_id).first()\n        if not record_object:\n            return Response({'status': False, \"error\": \"数据不存在\"})\n\n        if record_object.exchange:\n            return Response({'status': False, \"error\": \"已申请，不能重复申请\"})\n\n        record_object.exchange = True\n        record_object.save()\n\n        user_object.score = user_object.score + record_object.activity.score\n        user_object.save()\n\n        return Response({'status': True, \"msg\": \"申请成功\", \"score\": user_object.score})\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo",
+        "2024000271-后端代码/Tasks Master api/api/models.py/JoinRecord"
+      ],
+      "special_reference_type": [
+        false,
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "handle_wechat_request",
+      "md_content": [
+        "**handle_wechat_request**: handle_wechat_request函数的作用是处理微信请求并与百度服务器进行交互，以获取特定任务的步骤和内容。\n\n**参数**:\n· request: HTTP请求对象，包含微信小程序发送的数据。\n\n**代码描述**:\nhandle_wechat_request函数首先解析request中的JSON数据，提取出对话文本(chat_text)、起始时间(start_time)和结束时间(end_time)。然后调用utils中的ai模块的get_access_token函数获取访问令牌(access_token)。若未成功获取access_token，则返回错误响应。接着构建请求百度服务器的URL，并准备请求内容，包括用户角色、任务要求等。发送POST请求到百度服务器，获取响应内容并返回给微信小程序。\n\n在项目中，handle_wechat_request函数被Tasks Master api/api/views/bank.py中的handle_wechat_request对象调用。handle_wechat_request函数与utils中的ai模块的get_access_token函数相互配合，确保成功获取访问令牌后再进行后续操作。\n\n**注意**:\n- 在使用handle_wechat_request函数前，请确保已正确配置百度API Key和Secret Key。\n- 确保网络连接正常，以便成功与百度服务器进行交互。\n\n**输出示例**:\n```json\n{\n    \"step\": [\"step1\", \"step2\", \"step3\", \"step4\", \"step5\"],\n    \"task_content\": [\"content1\", \"content2\", \"content3\", \"content4\", \"content5\"],\n    \"endtime\": \"2023-12-31\"\n}\n```"
+      ],
+      "code_start_line": 224,
+      "code_end_line": 270,
+      "params": [
+        "request"
+      ],
+      "have_return": true,
+      "code_content": "def handle_wechat_request(request):\n    received_json_data = json.loads(request.body.decode(\"utf-8\"))\n    chat_text = received_json_data.get('chat_text')\n    start_time = received_json_data.get('start_time')\n    end_time = received_json_data.get('end_time')\n    print(chat_text)\n    print(start_time)\n    print(end_time)\n    from utils import ai\n    access_token = ai.get_access_token()\n    if not access_token:\n        return JsonResponse({\"error\": \"无法获取访问令牌\"}, status=500)\n\n    # 构建请求百度服务器的URL\n    url = \"https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro?access_token=\" + ai.get_access_token()\n\n    # 构建请求内容\n    payload = json.dumps({\n        \"messages\": [\n            {\n                \"role\": \"user\",\n                \"content\": f\"请帮我把{chat_text}做分解成五个步骤，这个任务的起始时间是{start_time}结束时间是{end_time}，我要求你返回json文件，包括对应的step，和对应的task_content（不多于15字），和endtime（这个要年月日），这个要顺序，我只需要返回一个标准的json响应\"\n            }\n        ]\n    })\n    headers = {\n        'Content-Type': 'application/json'\n    }\n\n    # 发送请求到百度服务器\n    response = requests.request(\"POST\", url, headers=headers, data=payload)\n    print(response)\n    # 检查响应状态码\n    if response.status_code == 200:\n        # 解析响应内容为JSON格式\n\n        # 直接返回JSON响应给微信小程序\n        response_json = response.json()\n        # 直接返回JSON响应给微信小程序\n        return JsonResponse(response_json)\n\n        # 直接返回解析后的JSON响应给微信小程序\n\n\n    else:\n        # 如果请求失败，返回错误信息\n        return JsonResponse({\"error\": \"请求百度服务器失败\"}, status=400)\n",
+      "name_column": 4,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/urls.py"
+      ],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/utils/ai.py/get_access_token"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/api/migrations/0005_taskstext_activity_xxx_alter_joinrecord_activity.py": [
+    {
+      "type": "ClassDef",
+      "name": "Migration",
+      "md_content": [
+        "**Migration**: Migration的功能是执行数据库迁移操作。\n\n**attributes**:\n· dependencies: 依赖关系列表，指定了迁移操作的依赖关系。\n· operations: 操作列表，包含了要执行的具体数据库操作。\n\n**Code Description**:\nMigration类继承自migrations.Migration类，用于定义数据库迁移操作。在该类中，dependencies属性指定了迁移操作的依赖关系，operations属性包含了要执行的具体数据库操作。在operations中，包括了三个具体的数据库操作：CreateModel、AddField和AlterField。CreateModel用于创建TasksText模型，包含了id、detail、avatar和deadline等字段的定义；AddField用于向activity模型添加xxx字段，该字段为ManyToManyField类型，关联到userinfo模型，并通过JoinRecord进行关联；AlterField用于修改joinrecord模型中的activity字段，将其设置为ForeignKey类型，关联到activity模型。\n\n**Note**:\n- 在执行数据库迁移操作时，需要注意依赖关系的正确设置，以确保数据库结构的正确更新。\n- 确保对数据库操作的影响有充分的了解，避免造成数据丢失或不一致。"
+      ],
+      "code_start_line": 7,
+      "code_end_line": 33,
+      "params": [],
+      "have_return": false,
+      "code_content": "class Migration(migrations.Migration):\n\n    dependencies = [\n        ('api', '0004_goods_alter_activity_date'),\n    ]\n\n    operations = [\n        migrations.CreateModel(\n            name='TasksText',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('detail', models.TextField(blank=True, null=True, verbose_name='任务具体信息')),\n                ('avatar', models.FileField(max_length=128, upload_to='bank/%Y/%m/%d/', verbose_name='头像')),\n                ('deadline', models.DateTimeField(verbose_name='任务截止时间')),\n            ],\n        ),\n        migrations.AddField(\n            model_name='activity',\n            name='xxx',\n            field=models.ManyToManyField(through='api.JoinRecord', to='api.userinfo', verbose_name='参与者'),\n        ),\n        migrations.AlterField(\n            model_name='joinrecord',\n            name='activity',\n            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='ac', to='api.activity', verbose_name='活动'),\n        ),\n    ]\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/api/migrations/0001_initial.py": [
+    {
+      "type": "ClassDef",
+      "name": "Migration",
+      "md_content": [
+        "**Migration**: Migration的功能是执行数据库迁移操作。\n\n**attributes**:\n· initial: 一个布尔值，表示是否为初始迁移。\n· dependencies: 一个空列表，表示迁移的依赖关系。\n· operations: 一个包含数据库操作的列表。\n\n**Code Description**:\nMigration类继承自migrations.Migration类，用于定义数据库迁移操作。在operations属性中，包含了一个migrations.CreateModel操作，用于创建名为UserInfo的模型。UserInfo模型包含了多个字段，如id、uid、area、name等，每个字段都定义了相应的数据类型和属性。\n\n在UserInfo模型中，id字段为自增主键，uid字段为CharField类型，area字段为IntegerField类型且包含了选择项，name字段为CharField类型，avatar字段为FileField类型，create_date字段为DateField类型且设置为自动添加当前日期，face_token字段为CharField类型，score字段为IntegerField类型且设置了默认值为0。\n\n**Note**: 在使用Migration类时，可以根据实际需求修改operations属性中的数据库操作，以实现数据库结构的变更和迁移。"
+      ],
+      "code_start_line": 6,
+      "code_end_line": 27,
+      "params": [],
+      "have_return": false,
+      "code_content": "class Migration(migrations.Migration):\n\n    initial = True\n\n    dependencies = [\n    ]\n\n    operations = [\n        migrations.CreateModel(\n            name='UserInfo',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('uid', models.CharField(max_length=64, verbose_name='ID')),\n                ('area', models.IntegerField(choices=[(1, '#19'), (2, '#20'), (3, '#21'), (4, '#22')], verbose_name='网格')),\n                ('name', models.CharField(max_length=32, verbose_name='姓名')),\n                ('avatar', models.FileField(max_length=128, upload_to='bank/%Y/%m/%d/', verbose_name='头像')),\n                ('create_date', models.DateField(auto_now_add=True, verbose_name='日期')),\n                ('face_token', models.CharField(max_length=32, verbose_name='FaceToken')),\n                ('score', models.IntegerField(default=0, verbose_name='积分')),\n            ],\n        ),\n    ]\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/api/migrations/0003_joinrecord.py": [
+    {
+      "type": "ClassDef",
+      "name": "Migration",
+      "md_content": [
+        "**Migration**: Migration的功能是执行数据库迁移操作。\n\n**attributes**:\n· dependencies: 依赖关系列表，指定了迁移操作的依赖关系。\n· operations: 操作列表，包含了要执行的数据库操作。\n\n**Code Description**:\nMigration类继承自migrations.Migration类，用于定义数据库迁移操作。在该类中，dependencies属性指定了迁移操作的依赖关系，operations属性包含了要执行的数据库操作。在该代码中，定义了一个CreateModel操作，用于创建一个名为JoinRecord的模型。JoinRecord模型包含了id、exchange、activity和user等字段，分别表示ID、是否已兑换、活动和用户等信息。\n\n**Note**:\n- 在编写迁移文件时，需要确保依赖关系和操作的顺序正确，以避免出现数据库迁移错误。\n- 确保模型字段的定义准确，包括字段类型、默认值和verbose_name等属性的设置。"
+      ],
+      "code_start_line": 7,
+      "code_end_line": 23,
+      "params": [],
+      "have_return": false,
+      "code_content": "class Migration(migrations.Migration):\n\n    dependencies = [\n        ('api', '0002_activity'),\n    ]\n\n    operations = [\n        migrations.CreateModel(\n            name='JoinRecord',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('exchange', models.BooleanField(default=False, verbose_name='是否已兑换')),\n                ('activity', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.activity', verbose_name='活动')),\n                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.userinfo', verbose_name='用户')),\n            ],\n        ),\n    ]\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/api/migrations/0004_goods_alter_activity_date.py": [
+    {
+      "type": "ClassDef",
+      "name": "Migration",
+      "md_content": [
+        "**Migration**: Migration的功能是执行数据库迁移操作。\n\n**attributes**:\n· dependencies: 依赖关系，指定了迁移操作的依赖关系。\n· operations: 操作列表，包含了要执行的具体数据库操作。\n\n**Code Description**:\nMigration类继承自migrations.Migration类，用于定义数据库迁移操作。在该类中，dependencies属性指定了迁移操作的依赖关系，operations属性包含了要执行的具体数据库操作。在operations中，通过migrations.CreateModel和migrations.AlterField等方法定义了创建模型和修改字段的操作。\n\n在operations中，migrations.CreateModel用于创建名为'Goods'的模型，包含id、img、title和price等字段。其中id为自增主键，img为图片字段，title为字符型字段，price为整型字段。\n\n另外，还使用了migrations.AlterField方法，用于修改名为'activity'模型中的'date'字段，将其修改为DateField类型，并设置了verbose_name为'举办活动日期'。\n\n**Note**:\n- 在编写迁移文件时，需要注意依赖关系的设置，确保迁移操作的顺序正确。\n- 在定义数据库操作时，需仔细检查字段类型和属性，确保与实际需求一致。"
+      ],
+      "code_start_line": 6,
+      "code_end_line": 27,
+      "params": [],
+      "have_return": false,
+      "code_content": "class Migration(migrations.Migration):\n\n    dependencies = [\n        ('api', '0003_joinrecord'),\n    ]\n\n    operations = [\n        migrations.CreateModel(\n            name='Goods',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('img', models.ImageField(max_length=128, upload_to='bank/%Y/%m/%d/', verbose_name='图片')),\n                ('title', models.CharField(max_length=32, verbose_name='标题')),\n                ('price', models.IntegerField(default=0, verbose_name='积分')),\n            ],\n        ),\n        migrations.AlterField(\n            model_name='activity',\n            name='date',\n            field=models.DateField(verbose_name='举办活动日期'),\n        ),\n    ]\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/api/migrations/0002_activity.py": [
+    {
+      "type": "ClassDef",
+      "name": "Migration",
+      "md_content": [
+        "**Migration**: Migration的功能是执行数据库迁移操作。\n\n**attributes**:\n· dependencies: 依赖关系，指定了数据库迁移所依赖的其他迁移文件。\n· operations: 操作列表，包含了数据库迁移的具体操作，如创建表、添加字段等。\n\n**Code Description**:\nMigration类继承自migrations.Migration类，用于定义数据库迁移操作。在该类中，dependencies属性指定了数据库迁移所依赖的其他迁移文件，operations属性包含了数据库迁移的具体操作。在operations中，通过migrations.CreateModel操作创建了一个名为Activity的模型，该模型包含了多个字段，如id、title、text、date、count和score，分别对应着ID、活动标题、活动描述、活动日期、报名人数和积分等属性。\n\n**Note**:\n- 在执行数据库迁移时，需要确保依赖的其他迁移文件已经执行，以避免出现错误。\n- 可根据实际需求修改operations属性中的操作，如添加新的模型、字段或索引等。"
+      ],
+      "code_start_line": 6,
+      "code_end_line": 24,
+      "params": [],
+      "have_return": false,
+      "code_content": "class Migration(migrations.Migration):\n\n    dependencies = [\n        ('api', '0001_initial'),\n    ]\n\n    operations = [\n        migrations.CreateModel(\n            name='Activity',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('title', models.CharField(max_length=128, verbose_name='活动标题')),\n                ('text', models.TextField(blank=True, null=True, verbose_name='活动描述')),\n                ('date', models.DateField(verbose_name='活动日期')),\n                ('count', models.IntegerField(default=0, verbose_name='报名人数')),\n                ('score', models.IntegerField(default=0, verbose_name='积分')),\n            ],\n        ),\n    ]\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/api/migrations/0006_remove_userinfo_area_alter_taskstext_avatar_and_more.py": [
+    {
+      "type": "ClassDef",
+      "name": "Migration",
+      "md_content": [
+        "**Migration**: Migration的功能是执行数据库迁移操作。\n\n**attributes**:\n· dependencies: 依赖关系列表，指定了迁移操作的依赖关系。\n· operations: 操作列表，包含了数据库迁移的具体操作。\n\n**Code Description**:\nMigration类继承自migrations.Migration类，用于执行数据库迁移操作。在该类中，dependencies属性指定了迁移操作的依赖关系，operations属性包含了数据库迁移的具体操作。在operations中，包含了三个操作：RemoveField操作用于移除字段、AlterField操作用于修改字段属性。\n\n**Note**:\n- 在执行数据库迁移操作时，需要谨慎处理依赖关系，确保操作的顺序正确。\n- 通过添加或修改operations属性中的操作，可以实现对数据库结构的调整。"
+      ],
+      "code_start_line": 6,
+      "code_end_line": 27,
+      "params": [],
+      "have_return": false,
+      "code_content": "class Migration(migrations.Migration):\n\n    dependencies = [\n        ('api', '0005_taskstext_activity_xxx_alter_joinrecord_activity'),\n    ]\n\n    operations = [\n        migrations.RemoveField(\n            model_name='userinfo',\n            name='area',\n        ),\n        migrations.AlterField(\n            model_name='taskstext',\n            name='avatar',\n            field=models.FileField(max_length=128, null=True, upload_to='bank/%Y/%m/%d/', verbose_name='任务图片记录'),\n        ),\n        migrations.AlterField(\n            model_name='taskstext',\n            name='deadline',\n            field=models.CharField(max_length=16, verbose_name='任务截止时间'),\n        ),\n    ]\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/api/serializers/bank.py": [
+    {
+      "type": "ClassDef",
+      "name": "BankListSerializer",
+      "md_content": [
+        "**BankListSerializer**: BankListSerializer的功能是返回包含银行信息总数、当天创建的银行信息数量以及银行信息数据的字典。\n\n**属性**:\n- data: 用于获取银行信息总数、当天创建的银行信息数量以及银行信息数据的字典。\n\n**代码描述**:\nBankListSerializer类继承自ListSerializer类，通过重写data属性，实现了返回包含银行信息总数、当天创建的银行信息数量以及银行信息数据的字典。在data属性中，首先调用父类ListSerializer的data属性获取银行信息数据，然后通过查询数据库获取总银行信息数量和当天创建的银行信息数量，最后将这些信息整合到一个字典中返回。\n\n在项目中，BankListSerializer类被BankListModelSerializer类的Meta类调用，用于指定BankListModelSerializer类的list_serializer_class为BankListSerializer，从而在BankListModelSerializer中使用BankListSerializer来处理银行信息的序列化。\n\n**注意**:\n- BankListSerializer依赖于models.UserInfo模型和datetime模块。\n- 需要确保models.UserInfo模型中包含create_date字段用于筛选当天创建的银行信息数量。\n\n**输出示例**:\n```python\n{\n    \"total_count\": 1000,\n    \"today_count\": 10,\n    \"data\": [\n        {\"id\": 1, \"name\": \"Bank A\", \"avatar\": \"avatar_url\"},\n        {\"id\": 2, \"name\": \"Bank B\", \"avatar\": \"avatar_url\"},\n        ...\n    ]\n}\n```"
+      ],
+      "code_start_line": 16,
+      "code_end_line": 29,
+      "params": [],
+      "have_return": true,
+      "code_content": "class BankListSerializer(ListSerializer):\n\n    @property\n    def data(self):\n        ret = super(ListSerializer, self).data\n        total_count = models.UserInfo.objects.all().count()\n        today_count = models.UserInfo.objects.filter(create_date=datetime.datetime.today()).count()\n\n        info = {\n            \"total_count\": total_count,\n            \"today_count\": today_count,\n            \"data\": ret,\n        }\n        return ReturnDict(info, serializer=self)\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/BankListModelSerializer/Meta"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "data",
+      "md_content": [
+        "**data**: data函数的功能是获取用户信息的统计数据。\n\n**参数**：该函数没有参数。\n\n**代码描述**：data函数首先调用父类ListSerializer的data方法获取数据，然后统计所有用户信息的总数和当天创建的用户信息数量。最后，将统计结果和获取的数据封装成字典返回。\n\n在项目中，data函数被BankListSerializer中的其他方法调用，用于获取用户信息的统计数据。通过调用models.UserInfo对用户信息进行统计，实现了对用户信息的数据处理和展示。\n\n**注意**：在使用data函数时，需要确保models.UserInfo中的数据是准确的，以便获取正确的统计结果。\n\n**输出示例**：  \n```\n{\n    \"total_count\": 1000,\n    \"today_count\": 10,\n    \"data\": [\n        {\n            \"uid\": \"123\",\n            \"name\": \"Alice\",\n            \"avatar\": \"path/to/avatar.jpg\",\n            \"create_date\": \"2022-01-01\",\n            \"score\": 100,\n            \"face_token\": \"abc123\"\n        },\n        {\n            \"uid\": \"124\",\n            \"name\": \"Bob\",\n            \"avatar\": \"path/to/avatar.jpg\",\n            \"create_date\": \"2022-01-01\",\n            \"score\": 120,\n            \"face_token\": \"def456\"\n        },\n        ...\n    ]\n}\n```"
+      ],
+      "code_start_line": 19,
+      "code_end_line": 29,
+      "params": [
+        "self"
+      ],
+      "have_return": true,
+      "code_content": "    def data(self):\n        ret = super(ListSerializer, self).data\n        total_count = models.UserInfo.objects.all().count()\n        today_count = models.UserInfo.objects.filter(create_date=datetime.datetime.today()).count()\n\n        info = {\n            \"total_count\": total_count,\n            \"today_count\": today_count,\n            \"data\": ret,\n        }\n        return ReturnDict(info, serializer=self)\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "my_BankListSerializer",
+      "md_content": [
+        "**my_BankListSerializer**: my_BankListSerializer的功能是返回包含银行列表信息的序列化数据。\n\n**属性**:\n· data: 通过调用父类ListSerializer的data属性获取序列化数据。\n\n**代码描述**:\nmy_BankListSerializer类继承自ListSerializer类，其中data属性被重写以返回包含银行列表信息的序列化数据。在data属性中，首先调用父类ListSerializer的data属性获取基本数据，然后通过查询数据库获取总银行数量total_count，并将其与基本数据一起返回。\n\n在项目中，my_BankListSerializer类被my_BankListModelSerializer类的Meta中的list_serializer_class属性调用，用于指定序列化器类。\n\n**注意**: 在使用my_BankListSerializer时，需要确保数据库中存在TasksText模型以及相关字段。\n\n**输出示例**:\n```python\n{\n    \"total_count\": 10,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"avatar\": \"example_avatar.jpg\",\n            \"detail\": \"Example bank detail\",\n            \"deadline\": \"2022-12-31\"\n        },\n        {\n            \"id\": 2,\n            \"avatar\": \"another_avatar.jpg\",\n            \"detail\": \"Another bank detail\",\n            \"deadline\": \"2022-11-30\"\n        },\n        ...\n    ]\n}\n```"
+      ],
+      "code_start_line": 31,
+      "code_end_line": 44,
+      "params": [],
+      "have_return": true,
+      "code_content": "class my_BankListSerializer(ListSerializer):\n\n    @property\n    def data(self):\n        ret = super(ListSerializer, self).data\n        total_count = models.TasksText.objects.all().count()\n       # today_count = models.TasksText.objects.filter(create_date=datetime.datetime.today()).count()\n\n        info = {\n            \"total_count\": total_count,\n            #\"today_count\": today_count,\n            \"data\": ret,\n        }\n        return ReturnDict(info, serializer=self)\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/my_BankListModelSerializer/Meta"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "data",
+      "md_content": [
+        "**data**: data函数的功能是获取任务数据的统计信息。\n\n**参数**:\n- 无\n\n**代码描述**:\ndata函数首先调用ListSerializer的父类的data方法获取任务数据，然后通过查询TasksText模型类获取所有任务的总数。最后，将总数和任务数据一起返回。\n\nTasksText模型类表示任务的具体信息，包括任务具体信息、任务图片记录和任务截止时间。在data函数中，通过调用TasksText模型类进行数据查询和统计，将获取到的任务总数和数据一起返回。\n\n**注意**:\n- 在使用data函数时，会返回包含任务总数和数据的信息。\n- 需要确保TasksText模型类中存在相应的任务数据以便进行统计。\n\n**输出示例**:\n```\n{\n    \"total_count\": 10,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"detail\": \"完成文档生成\",\n            \"avatar\": \"example.jpg\",\n            \"deadline\": \"2022-12-31\"\n        },\n        {\n            \"id\": 2,\n            \"detail\": \"编写测试用例\",\n            \"avatar\": \"test.jpg\",\n            \"deadline\": \"2022-11-30\"\n        },\n        ...\n    ]\n}\n```"
+      ],
+      "code_start_line": 34,
+      "code_end_line": 44,
+      "params": [
+        "self"
+      ],
+      "have_return": true,
+      "code_content": "    def data(self):\n        ret = super(ListSerializer, self).data\n        total_count = models.TasksText.objects.all().count()\n       # today_count = models.TasksText.objects.filter(create_date=datetime.datetime.today()).count()\n\n        info = {\n            \"total_count\": total_count,\n            #\"today_count\": today_count,\n            \"data\": ret,\n        }\n        return ReturnDict(info, serializer=self)\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/TasksText"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "BankListModelSerializer",
+      "md_content": [
+        "**BankListModelSerializer**: BankListModelSerializer的功能是对models.UserInfo模型中的id、name和avatar字段进行序列化。\n\n**属性**:\n· list_serializer_class: BankListSerializer\n· model: models.UserInfo\n· fields: [\"id\", \"name\", \"avatar\"]\n\n**代码描述**:\nBankListModelSerializer是一个ModelSerializer类，用于对models.UserInfo模型中的特定字段进行序列化。在Meta类中，list_serializer_class属性指定了BankListSerializer作为列表序列化器，model属性指定了要序列化的模型为models.UserInfo，fields属性指定了要序列化的字段为\"id\"、\"name\"和\"avatar\"。\n\n在项目中，BankListModelSerializer被调用于BankView中的get_serializer_class方法中。在get_serializer_class方法中，根据请求的方法类型，如果是POST请求，则返回BankCreateModelSerializer，否则返回BankListModelSerializer。\n\n**注意**: 在使用BankListModelSerializer时，需要确保与models.UserInfo模型中的字段对应正确，以便正确序列化数据。"
+      ],
+      "code_start_line": 47,
+      "code_end_line": 53,
+      "params": [],
+      "have_return": false,
+      "code_content": "class BankListModelSerializer(ModelSerializer):\n    #area = serializers.CharField(source=\"get_area_display\")\n\n    class Meta:\n        list_serializer_class = BankListSerializer\n        model = models.UserInfo\n        fields = [\"id\", \"name\",  \"avatar\"]\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/BankView/get_serializer_class"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "Meta",
+      "md_content": [
+        "**Meta**: Meta的功能是定义了序列化器的元数据，包括列表序列化器的类、模型以及字段。\n\n**属性**:\n· list_serializer_class: 指定列表序列化器的类为BankListSerializer。\n· model: 指定模型为models.UserInfo。\n· fields: 包含\"id\"、\"name\"和\"avatar\"字段。\n\n**代码描述**:\nMeta类用于定义序列化器的元数据，其中list_serializer_class属性指定了列表序列化器的类为BankListSerializer，model属性指定了模型为models.UserInfo，fields属性包含\"id\"、\"name\"和\"avatar\"字段。这些元数据在序列化器中起着重要的配置作用，影响着序列化器的行为和输出结果。\n\n在项目中，Meta类被BankListModelSerializer调用，用于指定BankListModelSerializer的列表序列化器类、模型以及字段。通过Meta类的定义，可以灵活地配置序列化器的元数据，以满足具体业务需求。\n\n**注意**:\n- 在使用Meta类时，需要根据实际情况合理配置列表序列化器的类、模型和字段，确保序列化器的正确运行和输出结果的准确性。"
+      ],
+      "code_start_line": 50,
+      "code_end_line": 53,
+      "params": [],
+      "have_return": false,
+      "code_content": "    class Meta:\n        list_serializer_class = BankListSerializer\n        model = models.UserInfo\n        fields = [\"id\", \"name\",  \"avatar\"]\n",
+      "name_column": 10,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/BankListSerializer"
+      ],
+      "special_reference_type": [
+        false,
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "my_BankListModelSerializer",
+      "md_content": [
+        "**my_BankListModelSerializer**: my_BankListModelSerializer的功能是定义了银行模型的序列化器。\n\n**属性**:\n· list_serializer_class: my_BankListSerializer\n· model: models.TasksText\n· fields: [\"id\", \"avatar\", \"detail\", \"deadline\"]\n\n**代码描述**:\nmy_BankListModelSerializer是一个ModelSerializer类，用于对银行模型进行序列化。在Meta类中定义了list_serializer_class为my_BankListSerializer，model为models.TasksText，以及需要序列化的字段为[\"id\", \"avatar\", \"detail\", \"deadline\"]。\n\n**注意**: 当需要对银行模型进行序列化时，可以使用my_BankListModelSerializer。在项目中，my_BankListModelSerializer被my_BankView中的get_serializer_class方法调用，用于根据请求方法返回不同的序列化器。"
+      ],
+      "code_start_line": 55,
+      "code_end_line": 59,
+      "params": [],
+      "have_return": false,
+      "code_content": "class my_BankListModelSerializer(ModelSerializer):\n    class Meta:\n        list_serializer_class = my_BankListSerializer\n        model = models.TasksText\n        fields = [\"id\", \"avatar\",\"detail\",\"deadline\"]\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/my_BankView/get_serializer_class"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "Meta",
+      "md_content": [
+        "**Meta**: Meta的功能是定义序列化器的元数据。\n\n**attributes**:\n- list_serializer_class: 指定用于列表序列化的序列化器类。\n- model: 指定序列化器对应的模型类。\n- fields: 指定序列化器需要序列化的字段列表。\n\n**Code Description**:\nMeta类用于定义序列化器的元数据。在该类中，list_serializer_class属性指定了用于列表序列化的序列化器类my_BankListSerializer，model属性指定了序列化器对应的模型类TasksText，fields属性指定了序列化器需要序列化的字段列表，包括\"id\", \"avatar\", \"detail\", \"deadline\"。\n\n在项目中，Meta类被my_BankListModelSerializer调用，用于指定my_BankListModelSerializer的元数据。通过Meta类的定义，可以灵活地配置序列化器的行为，例如指定序列化器类、模型类和序列化字段。\n\n**Note**:\n- 在使用Meta类时，可以根据需求修改list_serializer_class、model和fields属性以满足特定的序列化需求。"
+      ],
+      "code_start_line": 56,
+      "code_end_line": 59,
+      "params": [],
+      "have_return": false,
+      "code_content": "    class Meta:\n        list_serializer_class = my_BankListSerializer\n        model = models.TasksText\n        fields = [\"id\", \"avatar\",\"detail\",\"deadline\"]\n",
+      "name_column": 10,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/TasksText",
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/my_BankListSerializer"
+      ],
+      "special_reference_type": [
+        false,
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "BankCreateModelSerializer",
+      "md_content": [
+        "**BankCreateModelSerializer**: BankCreateModelSerializer的功能是对银行用户信息进行序列化处理。\n\n**属性**:\n· model: models.UserInfo\n· exclude: ['face_token', \"uid\", ]\n\n**代码描述**:\nBankCreateModelSerializer是一个ModelSerializer类，用于对银行用户信息进行序列化处理。在Meta类中指定了model为models.UserInfo，并排除了'face_token'和'uid'两个字段。validate方法用于验证数据，生成一个唯一的uid，获取头像文件对象，调用ai模块的register_image方法注册头像信息并返回face_token，最后将uid和face_token添加到数据中并返回。\n\n在项目中，BankCreateModelSerializer被BankView视图中的get_serializer_class方法调用。在get_serializer_class方法中，根据请求方法的不同返回不同的序列化器类，当请求方法为POST时返回BankCreateModelSerializer，否则返回BankListModelSerializer。\n\n**注意**: 在使用BankCreateModelSerializer时，需要确保传入正确的数据格式，以便正确序列化用户信息。\n\n**输出示例**:\n{\n    'name': 'Alice',\n    'age': 30,\n    'avatar': <ImageFile: avatar.jpg>,\n    'face_token': 'abc123',\n    'uid': '123456'\n}"
+      ],
+      "code_start_line": 62,
+      "code_end_line": 76,
+      "params": [],
+      "have_return": true,
+      "code_content": "class BankCreateModelSerializer(ModelSerializer):\n    class Meta:\n        model = models.UserInfo\n        # fields = \"__all__\"\n        exclude = ['face_token', \"uid\", ]\n\n    def validate(self, data):\n        uid = str(uuid.uuid4()).replace(\"-\", \"_\")\n        avatar_file_object = data.get('avatar')\n        print(avatar_file_object)\n        name = data.get('name')\n        from utils import ai\n        data['face_token'] = ai.register_image(uid, name, avatar_file_object)\n        data['uid'] = uid\n        return data\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/BankView/get_serializer_class"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "Meta",
+      "md_content": [
+        "**Meta**: Meta的功能是定义模型元数据选项。\n**属性**：该类的属性。\n· model: 指定模型类。\n· exclude: 指定不包含在序列化中的字段列表。\n**代码描述**：Meta类用于定义模型元数据选项。在该代码中，model属性指定了模型类为models.UserInfo，exclude属性指定了不包含在序列化中的字段列表为['face_token', \"uid\", ]。\n在项目中，Meta类被BankCreateModelSerializer调用，用于设置模型的元数据选项。BankCreateModelSerializer是用于创建银行模型的序列化器，通过调用Meta类，指定了模型类为models.UserInfo，并排除了'face_token'和'uid'字段。\n**注意**：在使用Meta类时，根据具体需求合理设置模型元数据选项，确保序列化结果符合预期。"
+      ],
+      "code_start_line": 63,
+      "code_end_line": 66,
+      "params": [],
+      "have_return": false,
+      "code_content": "    class Meta:\n        model = models.UserInfo\n        # fields = \"__all__\"\n        exclude = ['face_token', \"uid\", ]\n",
+      "name_column": 10,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "validate",
+      "md_content": [
+        "**validate**: validate函数的功能是验证数据并注册用户图像。\n\n**参数**:\n· self: 类实例\n· data: 包含用户信息的数据字典，包括头像文件对象(avatar)和姓名(name)\n\n**代码描述**:\nvalidate函数首先生成一个唯一的用户ID(uid)，然后获取传入的头像文件对象(avatar_file_object)和姓名(name)信息。接着从utils模块导入ai模块，并调用ai.register_image函数注册用户图像，将返回的face_token和uid添加到数据中后返回。\n\n在项目中，validate函数被BankCreateModelSerializer类调用，用于验证数据并注册用户图像。\n\n**注意**: 在调用validate函数时，需要传入正确的数据字典，包括头像文件对象和姓名信息。\n\n**输出示例**:\n{\n    \"face_token\": \"xxxxxxxxxxxxxx\",\n    \"uid\": \"xxxxxxxx_xxxxxx\"\n}"
+      ],
+      "code_start_line": 68,
+      "code_end_line": 76,
+      "params": [
+        "self",
+        "data"
+      ],
+      "have_return": true,
+      "code_content": "    def validate(self, data):\n        uid = str(uuid.uuid4()).replace(\"-\", \"_\")\n        avatar_file_object = data.get('avatar')\n        print(avatar_file_object)\n        name = data.get('name')\n        from utils import ai\n        data['face_token'] = ai.register_image(uid, name, avatar_file_object)\n        data['uid'] = uid\n        return data\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/utils/ai.py/register_image"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "my_BankCreateModelSerializer",
+      "md_content": [
+        "**my_BankCreateModelSerializer**: my_BankCreateModelSerializer的功能是对银行模型进行创建的序列化操作。\n\n**属性**:\n· model: models.TasksText\n· fields: \"__all__\"\n\n**代码描述**:\nmy_BankCreateModelSerializer是一个ModelSerializer类，用于对银行模型进行创建的序列化操作。在Meta类中，指定了model为models.TasksText，表示该序列化器将对TasksText模型进行序列化操作，并且指定了fields为\"__all__\"，表示序列化所有字段。\n\nvalidate方法用于验证数据，其中通过data.get()方法获取数据中的'avatar'、'name'和'deadline'字段，并进行简单的处理后返回数据。\n\n在项目中，my_BankCreateModelSerializer被Tasks Master api中的api/views/bank.py中的my_BankView的get_serializer_class方法调用。在get_serializer_class方法中，根据请求的方法类型返回不同的序列化器，当请求方法为POST时返回my_BankCreateModelSerializer，否则返回my_BankListModelSerializer。\n\n**注意**:\n- 请确保在使用该序列化器时，数据格式符合TasksText模型的要求。\n- validate方法可以根据实际需求进行数据验证和处理。\n\n**输出示例**:\n假设输入数据为{'avatar': 'example.jpg', 'name': 'Task 1', 'deadline': '2022-12-31'}，经过my_BankCreateModelSerializer序列化后输出相同的数据。"
+      ],
+      "code_start_line": 78,
+      "code_end_line": 90,
+      "params": [],
+      "have_return": true,
+      "code_content": "class my_BankCreateModelSerializer(ModelSerializer):\n    class Meta:\n        model = models.TasksText\n        fields = \"__all__\"\n\n\n    def validate(self, data):\n        #uid = str(uuid.uuid4()).replace(\"-\", \"_\")\n        avatar_file_object = data.get('avatar')\n        print(avatar_file_object)\n        name = data.get('name')\n        deadline = data.get('deadline')\n        return data\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/my_BankView/get_serializer_class"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "Meta",
+      "md_content": [
+        "**Meta**: Meta的功能是定义模型元数据。\n\n**attributes**:\n- model: 指定模型类。\n- fields: 指定序列化时包含的字段。\n\n**Code Description**:\nMeta类用于定义模型元数据，其中model属性指定了关联的模型类为models.TasksText，fields属性设置为\"__all__\"，表示序列化时包含所有字段。\n\n在项目中，Meta被用于my_BankCreateModelSerializer中，指定了关联的模型类为TasksText，并设置了序列化时包含的字段。这样在序列化数据时，会自动包含TasksText模型中定义的所有字段。\n\n**Note**:\n- 在定义Meta时，可以根据需求指定不同的模型类和字段，以满足序列化的需求。"
+      ],
+      "code_start_line": 79,
+      "code_end_line": 81,
+      "params": [],
+      "have_return": false,
+      "code_content": "    class Meta:\n        model = models.TasksText\n        fields = \"__all__\"\n",
+      "name_column": 10,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/TasksText"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "validate",
+      "md_content": [
+        "**validate**: validate函数的作用是验证数据。\n\n**参数**:\n· data: 包含需要验证的数据的字典对象。\n\n**代码描述**:\n在这个validate函数中，首先通过data.get('avatar')获取avatar文件对象，然后通过data.get('name')获取名称，最后通过data.get('deadline')获取截止日期。最后，函数返回整个数据字典。\n\n**注意**: 请确保传入的data参数是一个包含必要字段的有效字典对象。\n\n**输出示例**:\n假设data参数包含以下内容:\n{\n    'avatar': 'avatar.jpg',\n    'name': 'John Doe',\n    'deadline': '2022-12-31'\n}\n\n函数将返回与data参数相同的数据字典。"
+      ],
+      "code_start_line": 84,
+      "code_end_line": 90,
+      "params": [
+        "self",
+        "data"
+      ],
+      "have_return": true,
+      "code_content": "    def validate(self, data):\n        #uid = str(uuid.uuid4()).replace(\"-\", \"_\")\n        avatar_file_object = data.get('avatar')\n        print(avatar_file_object)\n        name = data.get('name')\n        deadline = data.get('deadline')\n        return data\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "StatisticsListSerializer",
+      "md_content": [
+        "**StatisticsListSerializer**: StatisticsListSerializer的功能是定义了一个序列化器，包含了两个字段：create_date和count。\n\n**attributes**:\n· create_date: 日期字段，格式为\"%Y-%m-%d\"。\n· count: 整数字段。\n\n**Code Description**:\nStatisticsListSerializer是一个序列化器类，用于对数据进行序列化处理。其中，create_date是一个日期字段，使用\"%Y-%m-%d\"的格式进行展示；count是一个整数字段。在调用方面，StatisticsListSerializer被用于序列化用户信息数据，用于统计每个创建日期的数量，并按照创建日期降序排列。\n\n**Note**: 在使用StatisticsListSerializer时，需要注意对日期字段create_date的格式化要求为\"%Y-%m-%d\"。"
+      ],
+      "code_start_line": 93,
+      "code_end_line": 95,
+      "params": [],
+      "have_return": false,
+      "code_content": "class StatisticsListSerializer(serializers.Serializer):\n    create_date = serializers.DateField(format=\"%Y-%m-%d\")\n    count = serializers.IntegerField()\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/StatisticsView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "ActivityModelListSerializer",
+      "md_content": [
+        "**ActivityModelListSerializer**: ActivityModelListSerializer的功能是对活动模型进行序列化处理。\n\n**属性**:\n- date: 日期字段，格式化为\"%Y-%m-%d\"。\n- disabled: 自定义方法字段，用于判断活动是否已过期。\n- exchange: 自定义方法字段，用于获取用户的兑换记录。\n\n**代码描述**:\nActivityModelListSerializer是一个ModelSerializer类，用于对活动模型进行序列化处理。其中，date字段被格式化为\"%Y-%m-%d\"。disabled方法用于判断活动是否已过期，如果活动日期晚于当天日期，则返回False，否则返回True。exchange方法用于获取用户的兑换记录，首先从请求中获取用户ID，然后查询对应的用户对象，接着查找该用户在该活动中的兑换记录，最终返回兑换记录。\n\n在项目中，ActivityModelListSerializer被ActivityView视图调用，用于序列化活动模型数据。\n\n**注意**: 在使用ActivityModelListSerializer时，需要确保传入正确的参数和请求上下文，以便正确地序列化活动模型数据。\n\n**输出示例**:\n```python\n{\n    'date': '2022-12-31',\n    'disabled': False,\n    'exchange': 'example_exchange_record'\n}\n```"
+      ],
+      "code_start_line": 98,
+      "code_end_line": 125,
+      "params": [],
+      "have_return": true,
+      "code_content": "class ActivityModelListSerializer(ModelSerializer):\n    date = serializers.DateField(format=\"%Y-%m-%d\")\n    disabled = serializers.SerializerMethodField()\n    exchange = serializers.SerializerMethodField()\n\n    class Meta:\n        model = models.Activity\n        fields = \"__all__\"\n\n    def get_disabled(self, row):\n        today = datetime.date.today()\n        if row.date > today:\n            return False\n        return True\n\n    def get_exchange(self, row):\n        request = self.context['request']\n        user_id = request.query_params.get('user_id')\n        if not user_id:\n            return False\n        user_object = models.UserInfo.objects.filter(uid=user_id).first()\n        if not user_object:\n            return False\n\n        record = models.JoinRecord.objects.filter(user=user_object, activity=row).first()\n        if not record:\n            return False\n        return record.exchange\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/ActivityView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "Meta",
+      "md_content": [
+        "**Meta**: Meta的功能是定义了关于模型元数据的配置选项。\n\n**属性**:\n· model: 指定与Serializer相关联的模型。\n· fields: 指定要序列化的模型字段。\n\n**代码描述**:\nMeta类用于配置Serializer的元数据选项。在该代码中，model属性指定了与Serializer相关联的模型为models.Activity，fields属性设置为\"__all__\"，表示序列化所有模型字段。\n\n在项目中，Meta类被ActivityModelListSerializer调用，用于指定序列化器的元数据配置选项。通过指定model属性，Serializer知道要序列化的模型是Activity，而通过fields属性，Serializer将序列化所有模型字段。\n\n**注意**: 在使用Meta类时，确保正确配置model和fields属性，以便正确序列化模型数据。"
+      ],
+      "code_start_line": 103,
+      "code_end_line": 105,
+      "params": [],
+      "have_return": false,
+      "code_content": "    class Meta:\n        model = models.Activity\n        fields = \"__all__\"\n",
+      "name_column": 10,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/Activity"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    },
+    {
+      "type": "FunctionDef",
+      "name": "get_disabled",
+      "md_content": [
+        "**get_disabled**: get_disabled函数的作用是根据传入的行数据判断是否禁用。\n\n**参数**:\n· row: 传入的行数据，包含日期信息。\n\n**代码描述**:\n该函数首先获取当天日期，然后将传入的行数据中的日期与当天日期进行比较。如果传入的日期大于当天日期，则返回False，表示未禁用；否则返回True，表示已禁用。\n\n**注意**: 请确保传入的行数据中包含日期信息，并且日期格式正确。\n\n**输出示例**:\n假设传入的行数据中的日期为'2022-12-31'，当天日期为'2022-12-30'，则该函数将返回False。"
+      ],
+      "code_start_line": 107,
+      "code_end_line": 111,
+      "params": [
+        "self",
+        "row"
+      ],
+      "have_return": true,
+      "code_content": "    def get_disabled(self, row):\n        today = datetime.date.today()\n        if row.date > today:\n            return False\n        return True\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "get_exchange",
+      "md_content": [
+        "**get_exchange**: get_exchange函数的功能是根据传入的行数据获取用户兑换信息。\n\n**参数**：该函数的参数。\n· row: 行数据，表示活动信息。\n\n**代码描述**：get_exchange函数接收一个行数据作为参数，通过查询用户ID，获取用户对象，然后根据用户对象和活动信息过滤JoinRecord对象，最终返回兑换状态。\n\n在项目中，get_exchange函数被ActivityModelListSerializer中的get_exchange方法调用。该方法通过过滤用户和活动信息来获取JoinRecord对象，并返回兑换状态。get_exchange函数的实现涉及对用户信息和活动报名记录的查询和过滤操作，以及对兑换状态的返回处理。\n\n**注意**：在使用get_exchange函数时，需要确保传入正确的行数据，并理解返回的兑换状态信息。\n\n**输出示例**：假设兑换状态为True，则返回True；否则返回False。"
+      ],
+      "code_start_line": 113,
+      "code_end_line": 125,
+      "params": [
+        "self",
+        "row"
+      ],
+      "have_return": true,
+      "code_content": "    def get_exchange(self, row):\n        request = self.context['request']\n        user_id = request.query_params.get('user_id')\n        if not user_id:\n            return False\n        user_object = models.UserInfo.objects.filter(uid=user_id).first()\n        if not user_object:\n            return False\n\n        record = models.JoinRecord.objects.filter(user=user_object, activity=row).first()\n        if not record:\n            return False\n        return record.exchange\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/UserInfo",
+        "2024000271-后端代码/Tasks Master api/api/models.py/JoinRecord"
+      ],
+      "special_reference_type": [
+        false,
+        false
+      ]
+    },
+    {
+      "type": "ClassDef",
+      "name": "GoodsListSerializer",
+      "md_content": [
+        "**GoodsListSerializer**: GoodsListSerializer的功能是将Goods模型的所有字段序列化。\n\n**attributes**:\n· model: models.Goods\n· fields: \"__all__\"\n\n**Code Description**:\nGoodsListSerializer是一个基于ModelSerializer的子类，用于将Goods模型的所有字段进行序列化。在Meta类中，指定了model为models.Goods，表示该序列化器将基于Goods模型进行序列化。fields设置为\"__all__\"，表示序列化器将包含Goods模型的所有字段。\n\n该序列化器在项目中被调用于api/views/bank.py的GoodsView视图中。在GoodsView视图中，queryset被设置为获取所有Goods对象并按照id降序排列，serializer_class被设置为GoodsListSerializer，以便在视图中使用GoodsListSerializer对Goods对象进行序列化。\n\n**Note**: 需要确保Goods模型中的所有字段都能被正确序列化，以便在GoodsView视图中展示完整的Goods对象信息。"
+      ],
+      "code_start_line": 129,
+      "code_end_line": 132,
+      "params": [],
+      "have_return": false,
+      "code_content": "class GoodsListSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = models.Goods\n        fields = \"__all__\"\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py",
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/GoodsView"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "ClassDef",
+      "name": "Meta",
+      "md_content": [
+        "**Meta**: Meta的功能是指定序列化器的模型和字段。\n**属性**:\n· model: 指定序列化器的模型为models.Goods。\n· fields: 指定序列化器序列化的字段为\"__all__\"，表示序列化所有字段。\n\n**代码描述**:\nMeta类用于在序列化器中指定模型和字段。在该代码中，model属性指定序列化器的模型为models.Goods，fields属性指定序列化器序列化的字段为\"__all__\"，表示序列化所有字段。\n\n在项目中，Meta类被调用于以下位置：\n1. 2024000271-后端代码/Tasks Master api/api/serializers/bank.py中的GoodsListSerializer类的Meta内部，用于指定序列化器的模型和字段。\n\n**注意**:\n- 使用Meta类时，可以通过model属性指定序列化器的模型，通过fields属性指定序列化器序列化的字段。"
+      ],
+      "code_start_line": 130,
+      "code_end_line": 132,
+      "params": [],
+      "have_return": false,
+      "code_content": "    class Meta:\n        model = models.Goods\n        fields = \"__all__\"\n",
+      "name_column": 10,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/api/models.py/Goods"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/utils/ai.py": [
+    {
+      "type": "FunctionDef",
+      "name": "register_image",
+      "md_content": [
+        "**register_image**: register_image函数的功能是注册用户图像。\n\n**参数**:\n· user_id: 用户ID\n· user_info: 用户信息\n· file_object: 文件对象\n· group_id: 分组ID，默认为\"got_face\"\n\n**代码描述**:\nregister_image函数首先获取百度AI平台的access token，然后对传入的图片文件进行base64编码，接着上传图片至百度AI平台进行人脸注册。最后，返回注册成功的人脸标识符(face_token)。\n\n在项目中，该函数被bank.py文件中的BankCreateModelSerializer类的validate方法调用。在validate方法中，首先生成一个唯一的用户ID(uid)，然后获取传入的头像文件对象(avatar_file_object)和姓名(name)信息。最后调用register_image函数注册用户图像，并将返回的face_token和uid添加到数据中后返回。\n\n**注意**: 在调用register_image函数时，需要确保传入正确的参数，包括用户ID、用户信息、文件对象等。\n\n**输出示例**:\n{\n    \"face_token\": \"xxxxxxxxxxxxxx\"\n}"
+      ],
+      "code_start_line": 7,
+      "code_end_line": 38,
+      "params": [
+        "user_id",
+        "user_info",
+        "file_object",
+        "group_id"
+      ],
+      "have_return": true,
+      "code_content": "def register_image(user_id, user_info, file_object, group_id=\"got_face\"):\n    # 1. 获取 access token\n    # client_id 为官网获取的AK， client_secret 为官网获取的SK\n    host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=d83hlOE6YPCPWxiUeSmEsiEB&client_secret=5sjB260Iyy18yWaHzUBmry4lPRgZFsBU'\n    response = requests.get(host)\n    access_token = response.json().get(\"access_token\")\n\n    # 2. 图片进行base64编码\n    # with open(\"wupeiqi.jpeg\", mode='rb') as file:\n    #     data = base64.b64encode(file.read())\n    data = base64.b64encode(file_object.read())\n\n    # 3. 上传图片\n    res = requests.post(\n        url=\"https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add\",\n        headers={\n            \"Content-Type\": \"application/json\"\n        },\n        params={\n            \"access_token\": access_token\n        },\n        data={\n            \"image\": data,\n            \"image_type\": \"BASE64\",\n            \"group_id\": group_id,\n            \"user_id\": user_id,\n            \"user_info\": user_info,\n        }\n    )\n    result = res.json()\n    print(result)\n    return result[\"result\"]['face_token']\n",
+      "name_column": 4,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/serializers/bank.py/BankCreateModelSerializer/validate"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "search",
+      "md_content": [
+        "**search**: search函数的功能是通过百度AI人脸识别API对传入的图像进行搜索匹配。\n\n**参数**:\n· file_object: 代表要进行人脸搜索的图像文件对象。\n\n**代码描述**:\nsearch函数首先通过请求获取百度AI的access token，然后将传入的图像文件对象进行base64编码。接着，使用POST请求将编码后的图像数据发送到百度AI的人脸搜索接口中进行匹配。最后，返回匹配结果的JSON数据。\n\n在项目中，search函数被位于\"Tasks Master api/api/views/bank.py/FaceView/post\"路径下的一个视图函数调用。在该调用中，首先从请求数据中获取图像文件对象，然后调用search函数进行人脸搜索匹配。根据匹配结果，获取用户ID并查询数据库中对应用户的得分，最终返回包含匹配结果、状态和得分的响应。\n\n**注意**: 需要安装requests库来发送HTTP请求，以及base64库来进行base64编码。\n\n**输出示例**:\n{\n    \"error_code\": 0,\n    \"result\": {\n        \"user_list\": [\n            {\n                \"user_id\": \"123456\"\n            }\n        ]\n    }\n}"
+      ],
+      "code_start_line": 41,
+      "code_end_line": 70,
+      "params": [
+        "file_object"
+      ],
+      "have_return": true,
+      "code_content": "def search(file_object):\n    # 1. 获取 access token\n    host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=d83hlOE6YPCPWxiUeSmEsiEB&client_secret=5sjB260Iyy18yWaHzUBmry4lPRgZFsBU'\n\n    response = requests.get(host)\n    access_token = response.json().get(\"access_token\")\n\n    # 2. 图片进行base64编码\n    data = base64.b64encode(file_object.read())\n\n    # 3. 检验图片\n    res = requests.post(\n        url=\"https://aip.baidubce.com/rest/2.0/face/v3/search\",\n        headers={\n            \"Content-Type\": \"application/json\"\n        },\n        params={\n            \"access_token\": access_token\n        },\n        data={\n            \"image\": data,\n            \"image_type\": \"BASE64\",\n            \"group_id_list\": \"got_face\",\n            #\"group_id_list\": \"text\",\n            \"match_threshold\": 80,\n            \"liveness_control\": \"HIGH\",\n        }\n    )\n\n    return res.json()\n",
+      "name_column": 4,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/FaceView/post"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "delete",
+      "md_content": [
+        "**delete**: delete函数的功能是删除人脸数据。\n\n**参数**:\n· user_id: 用户ID\n· face_token: 人脸标识符\n· group_id: 分组ID，默认为\"got_face\"\n\n**代码描述**:\n该函数首先通过发送GET请求获取访问令牌(access token)，然后使用该访问令牌发送POST请求来删除指定用户在指定分组中的特定人脸数据。\n\n**注意**:\n在调用该函数之前，需要确保传入正确的用户ID(user_id)、人脸标识符(face_token)以及可选的分组ID(group_id)。"
+      ],
+      "code_start_line": 73,
+      "code_end_line": 98,
+      "params": [
+        "user_id",
+        "face_token",
+        "group_id"
+      ],
+      "have_return": false,
+      "code_content": "def delete(user_id, face_token, group_id=\"got_face\"):\n    # https://aip.baidubce.com/rest/2.0/face/v3/faceset/face/delete\n\n    # 1. 获取 access token\n    # client_id 为官网获取的AK， client_secret 为官网获取的SK\n    host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=d83hlOE6YPCPWxiUeSmEsiEB&client_secret=5sjB260Iyy18yWaHzUBmry4lPRgZFsBU'\n\n\n    response = requests.get(host)\n    access_token = response.json().get(\"access_token\")\n\n    # 2. 检验图片\n    res = requests.post(\n        url=\"https://aip.baidubce.com/rest/2.0/face/v3/faceset/face/delete\",\n        headers={\n            \"Content-Type\": \"application/json\"\n        },\n        params={\n            \"access_token\": access_token\n        },\n        data={\n            \"user_id\": user_id,\n            \"group_id\": group_id,\n            \"face_token\": face_token\n        }\n    )\n",
+      "name_column": 4,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "get_access_token",
+      "md_content": [
+        "**get_access_token**: get_access_token函数的作用是使用API Key和Secret Key获取access_token。\n\n**参数**:\n· 无参数\n\n**代码描述**:\nget_access_token函数通过向百度服务器发送POST请求，使用提供的API Key和Secret Key获取access_token。函数首先构建请求的URL，然后设置请求的headers，接着发送请求并返回获取到的access_token。\n\n在项目中，get_access_token函数被Tasks Master api/api/views/bank.py/handle_wechat_request对象调用。在handle_wechat_request函数中，首先调用get_access_token函数获取access_token，然后将access_token用于构建请求百度服务器的URL，发送请求并处理响应结果。\n\n**注意**:\n- 在使用get_access_token函数前，请确保替换URL中的应用API Key和应用Secret Key。\n- 确保网络连接正常，以便成功获取access_token。\n\n**输出示例**:\n```json\n{\n    \"access_token\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}\n```"
+      ],
+      "code_start_line": 101,
+      "code_end_line": 116,
+      "params": [],
+      "have_return": true,
+      "code_content": "def get_access_token():\n    \"\"\"\n    使用 API Key，Secret Key 获取access_token，替换下列示例中的应用API Key、应用Secret Key\n    \"\"\"\n\n    url = \"https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=NSIN2IbvSQvr2HIhm6fUEY4q&client_secret=jAk8HOkVOa4yE6MndM223SLLbrhFChPR\"\n\n    payload = json.dumps(\"\")\n    headers = {\n        'Content-Type': 'application/json',\n        'Accept': 'application/json'\n    }\n\n    response = requests.request(\"POST\", url, headers=headers, data=payload)\n    #返回获取到的access_token\n    return response.json().get(\"access_token\")\n",
+      "name_column": 4,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/api/views/bank.py/handle_wechat_request"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/utils/wechat.py": [
+    {
+      "type": "ClassDef",
+      "name": "WechatMessage",
+      "md_content": [
+        "**WechatMessage**: WechatMessage的功能是微信消息发送。\n\n**attributes**:\n- app_id: 微信应用ID\n- app_secret: 微信应用密钥\n- token: 微信接口凭证\n- expires: 凭证过期时间\n- file_path: 存储openid的文件路径\n\n**Code Description**:\nWechatMessage类包含了用于发送微信消息的方法。在初始化时，会设置微信应用ID和密钥，以及一些其他属性。get_access_token方法用于获取微信全局接口的凭证，如果缓存中存在且未过期，则直接返回凭证，否则通过请求获取并更新凭证信息。notify方法用于向指定用户发送模板消息，首先获取访问凭证，然后读取存储openid的文件，逐个发送消息给对应用户。\n\n**Note**:\n- 需要确保在使用notify方法前已设置好app_id和app_secret。\n- 需要确保openid.txt文件存在且包含有效的openid信息。\n\n**Output Example**:\n无"
+      ],
+      "code_start_line": 7,
+      "code_end_line": 92,
+      "params": [],
+      "have_return": true,
+      "code_content": "class WechatMessage(object):\n    \"\"\"\n    微信消息发送\n    \"\"\"\n\n    def __init__(self):\n        self.app_id = settings.WECHAT_APP_ID\n        self.app_secret = settings.WECHAT_APP_SECRET\n\n        self.token = None\n        self.expires = None\n\n        self.file_path = os.path.join(settings.BASE_DIR, 'openid.txt')\n\n    def get_access_token(self):\n        \"\"\"\n        获取微信全局接口的凭证(默认有效期俩个小时)\n        如果不每天请求次数过多, 通过设置缓存即可\n        \"\"\"\n        if self.expires and datetime.datetime.now() < self.expires:\n            return self.token\n\n        result_dict = requests.get(\n            url=\"https://api.weixin.qq.com/cgi-bin/token\",\n            params={\n                \"grant_type\": \"client_credential\",\n                \"appid\": self.app_id,\n                \"secret\": self.app_secret,\n            }\n        ).json()\n        print(result_dict)\n        token = result_dict.get('access_token')\n        expires = result_dict.get('expires_in')\n\n        if token and expires:\n            self.token = token\n            self.expires = datetime.datetime.now() + datetime.timedelta(seconds=expires)\n            return token\n\n    def notify(self, username, value, date, data_list, title=\"心率报警提醒，请尽快处理。\"):\n        token = self.get_access_token()\n        if not token:\n            return False\n\n        if not os.path.exists(self.file_path):\n            return\n\n        with open(self.file_path, mode='r', encoding='utf-8') as f:\n            openid_list = f.readlines()\n\n        for openid in openid_list:\n            print(openid)\n            res = requests.post(\n                url=\"https://api.weixin.qq.com/cgi-bin/message/template/send\",\n                params={\n                    'access_token': token\n                },\n                json={\n                    \"touser\": openid,\n                    \"template_id\": '_pIlO6oWvCbdcj73oepSYp7138i9_YnTwzPXXf2T_20',\n                    \"data\": {\n                        \"first\": {\n                            \"value\": title,\n                        },\n                        \"keyword1\": {\n                            \"value\": \"心率异常报警\"\n                        },\n                        \"keyword2\": {\n                            \"value\": \"社区办事处\",\n                        },\n                        \"keyword3\": {\n                            \"value\": username\n                        },\n                        \"keyword4\": {\n                            \"value\": \"连续五次心率小于{}\".format(value)\n                        },\n                        \"keyword5\": {\n                            \"value\": date\n                        },\n                        \"remark\": {\n                            \"value\": \"连续五次心率的数据分别为：{}。\".format(\",\".join(data_list)),\n                            \"color\": \"#173177\"\n                        },\n                    }\n                }\n            )\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "__init__",
+      "md_content": [
+        "**__init__**: __init__函数的作用是初始化WechatMessage对象的属性。\n\n**参数**：该函数没有参数。\n\n**代码描述**：在这个__init__函数中，首先将settings.WECHAT_APP_ID和settings.WECHAT_APP_SECRET分别赋值给self.app_id和self.app_secret属性。然后将self.token和self.expires属性初始化为None。接着，使用os.path.join方法将settings.BASE_DIR和'openid.txt'拼接成一个文件路径，并将其赋值给self.file_path属性。\n\n**注意**：在使用该函数时，确保settings.WECHAT_APP_ID、settings.WECHAT_APP_SECRET和settings.BASE_DIR这些变量已经在代码中定义和赋值。"
+      ],
+      "code_start_line": 12,
+      "code_end_line": 19,
+      "params": [
+        "self"
+      ],
+      "have_return": false,
+      "code_content": "    def __init__(self):\n        self.app_id = settings.WECHAT_APP_ID\n        self.app_secret = settings.WECHAT_APP_SECRET\n\n        self.token = None\n        self.expires = None\n\n        self.file_path = os.path.join(settings.BASE_DIR, 'openid.txt')\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "get_access_token",
+      "md_content": [
+        "**get_access_token**: get_access_token函数的功能是获取微信全局接口的凭证。\n\n**参数**:\n- 无\n\n**代码描述**:\n该函数首先检查当前的凭证是否存在且未过期，如果未过期则直接返回现有的凭证。若凭证不存在或已过期，则向微信服务器发送请求以获取新的凭证。获取到新的凭证后，更新对象的token和expires属性，并返回新的凭证。\n\n在项目中，该函数被WechatMessage类中的notify方法调用。在notify方法中，首先调用get_access_token函数获取访问令牌，然后使用该令牌向微信服务器发送模板消息通知。\n\n**注意**:\n- 需要正确配置app_id和app_secret属性才能成功获取访问令牌。\n- 凭证的有效期为两个小时，建议根据实际需求设置缓存以减少请求次数。\n\n**输出示例**:\n假设成功获取到访问令牌，则返回类似于\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsInVzZXJfbmFtZSI6ImFkbWluIiwidXNlcl9uYW1lIjoiYWRtaW4iLCJleHAiOjE1MTYyMzkwMjJ9.5sT6Dy6B9YU9Z3vYX2VQ6r2rZ2m7g7z2JdUwJ7v9q6A\" 的访问令牌。"
+      ],
+      "code_start_line": 21,
+      "code_end_line": 44,
+      "params": [
+        "self"
+      ],
+      "have_return": true,
+      "code_content": "    def get_access_token(self):\n        \"\"\"\n        获取微信全局接口的凭证(默认有效期俩个小时)\n        如果不每天请求次数过多, 通过设置缓存即可\n        \"\"\"\n        if self.expires and datetime.datetime.now() < self.expires:\n            return self.token\n\n        result_dict = requests.get(\n            url=\"https://api.weixin.qq.com/cgi-bin/token\",\n            params={\n                \"grant_type\": \"client_credential\",\n                \"appid\": self.app_id,\n                \"secret\": self.app_secret,\n            }\n        ).json()\n        print(result_dict)\n        token = result_dict.get('access_token')\n        expires = result_dict.get('expires_in')\n\n        if token and expires:\n            self.token = token\n            self.expires = datetime.datetime.now() + datetime.timedelta(seconds=expires)\n            return token\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [
+        "2024000271-后端代码/Tasks Master api/utils/wechat.py/WechatMessage/notify"
+      ],
+      "reference_who": [],
+      "special_reference_type": []
+    },
+    {
+      "type": "FunctionDef",
+      "name": "notify",
+      "md_content": [
+        "**notify**: notify函数的功能是向特定用户发送微信模板消息通知。\n\n**参数**:\n- username: 用户名\n- value: 心率数值\n- date: 日期\n- data_list: 数据列表\n- title: 消息标题，默认为\"心率报警提醒，请尽快处理。\"\n\n**代码描述**:\n该函数首先调用get_access_token函数获取访问令牌。然后，检查文件路径是否存在，读取文件中的openid列表。接着，针对每个openid，向微信服务器发送模板消息通知，包括消息标题、关键词和备注等内容。\n\n在项目中，notify函数被WechatMessage类中的notify方法调用，用于实现向用户发送心率异常报警的微信通知。\n\n**注意**:\n- 需要正确配置app_id和app_secret属性才能成功获取访问令牌。\n- openid列表来自文件路径，确保文件存在且包含有效的openid。\n- 消息内容包括标题、关键词和备注，确保数据格式正确。\n\n**输出示例**:\n假设成功发送通知，则无返回值。"
+      ],
+      "code_start_line": 46,
+      "code_end_line": 92,
+      "params": [
+        "self",
+        "username",
+        "value",
+        "date",
+        "data_list",
+        "title"
+      ],
+      "have_return": true,
+      "code_content": "    def notify(self, username, value, date, data_list, title=\"心率报警提醒，请尽快处理。\"):\n        token = self.get_access_token()\n        if not token:\n            return False\n\n        if not os.path.exists(self.file_path):\n            return\n\n        with open(self.file_path, mode='r', encoding='utf-8') as f:\n            openid_list = f.readlines()\n\n        for openid in openid_list:\n            print(openid)\n            res = requests.post(\n                url=\"https://api.weixin.qq.com/cgi-bin/message/template/send\",\n                params={\n                    'access_token': token\n                },\n                json={\n                    \"touser\": openid,\n                    \"template_id\": '_pIlO6oWvCbdcj73oepSYp7138i9_YnTwzPXXf2T_20',\n                    \"data\": {\n                        \"first\": {\n                            \"value\": title,\n                        },\n                        \"keyword1\": {\n                            \"value\": \"心率异常报警\"\n                        },\n                        \"keyword2\": {\n                            \"value\": \"社区办事处\",\n                        },\n                        \"keyword3\": {\n                            \"value\": username\n                        },\n                        \"keyword4\": {\n                            \"value\": \"连续五次心率小于{}\".format(value)\n                        },\n                        \"keyword5\": {\n                            \"value\": date\n                        },\n                        \"remark\": {\n                            \"value\": \"连续五次心率的数据分别为：{}。\".format(\",\".join(data_list)),\n                            \"color\": \"#173177\"\n                        },\n                    }\n                }\n            )\n",
+      "name_column": 8,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [
+        "2024000271-后端代码/Tasks Master api/utils/wechat.py/WechatMessage/get_access_token"
+      ],
+      "special_reference_type": [
+        false
+      ]
+    }
+  ],
+  "2024000271-后端代码/Tasks Master api/utils/storage.py": [
+    {
+      "type": "ClassDef",
+      "name": "DB",
+      "md_content": [
+        "**DB**: DB的功能是定义一个数据库类。\n\n**attributes**:\n· FRV_DATA_DICT: 一个空字典，用于存储数据。\n· THRESHOLD: 一个整数值，表示阈值为60。\n\n**Code Description**:\nDB类是一个用于定义数据库的类。在该类中，FRV_DATA_DICT被定义为一个空字典，用于存储数据。THRESHOLD被定义为一个整数值60，表示阈值为60。这个类可以被用来创建数据库对象，并对数据库进行操作。\n\n**Note**:\n- 在使用DB类时，可以通过访问FRV_DATA_DICT来存储数据，并通过访问THRESHOLD来获取阈值数值。"
+      ],
+      "code_start_line": 4,
+      "code_end_line": 6,
+      "params": [],
+      "have_return": false,
+      "code_content": "class DB(object):\n    FRV_DATA_DICT = {}\n    THRESHOLD = 60\n",
+      "name_column": 6,
+      "item_status": "doc_up_to_date",
+      "who_reference_me": [],
+      "reference_who": [],
+      "special_reference_type": []
+    }
+  ]
+}
